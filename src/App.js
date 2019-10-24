@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Hexagon from "./components/Hexagon";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="Quilt"
+      css={{
+        display: "grid",
+        gridTemplateColumns: "repeat(18, 85px)",
+        gridTemplateRows: "repeat(7, 100px)",
+      }}
+    >
+      {[...Array(18 * 7).keys()].map((num, idx) => (
+        <Hexagon key={`hexi-key-${num}`} idx={idx} />
+      ))}
     </div>
   );
 }
