@@ -17,7 +17,7 @@ function App() {
                 width: 50,
                 height: 50,
                 backgroundRepeat: "no-repeat",
-                backgroundImage: `url(/beeCreative${idx + 1}.jpg)`,
+                backgroundImage: `url(/images/beeCreative${idx + 1}.jpg)`,
                 backgroundPosition: "center",
                 margin: "20px 0",
                 boxShadow: "2px 2px 4px #888888",
