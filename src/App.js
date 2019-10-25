@@ -1,10 +1,8 @@
 import React from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
-import images from "./components/image";
 
 function App() {
-  console.log(images);
   return (
     <main>
       <div css={{ display: "flex", justifyContent: "space-around" }}>
