@@ -1,16 +1,14 @@
-import getRandomInt from "./util";
+const images = [...Array(6).keys()]
+  .map((wkey, widx) => {
+    const w = `${-(widx * 114 + 55)}px`;
 
-const width = 112;
-const height = 112;
+    const h = [...Array(4).keys()].map((hkey, hidx) => {
+      return `${w} ${-hidx * 114 - 1}px`;
+    });
 
-const imageSprite = () => {
-  const widthPosition = getRandomInt(1, 5) * width + 2;
-  const heightPosition = getRandomInt(1, 4) * height + 2;
-  return {
-    backgroundImage: `url("/beeCreative.jpg"),
-    backgroundPositionX: ${widthPosition}px,
-    backgroundPositionY: ${heightPosition}px`,
-  };
-};
+    return h.join();
+  })
+  .join()
+  .split(",");
 
-export default imageSprite;
+export default images;

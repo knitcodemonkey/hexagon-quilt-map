@@ -1,21 +1,37 @@
 import React from "react";
 import "./App.css";
-import Hexagon from "./components/Hexagon";
+import QuiltSection from "./components/QuiltSection";
+import images from "./components/image";
 
 function App() {
+  console.log(images);
   return (
-    <div
-      className="Quilt"
-      css={{
-        display: "grid",
-        gridTemplateColumns: "repeat(18, 85px)",
-        gridTemplateRows: "repeat(7, 100px)",
-      }}
-    >
-      {[...Array(18 * 7).keys()].map((num, idx) => (
-        <Hexagon key={`hexi-key-${num}`} idx={idx} />
-      ))}
-    </div>
+    <main>
+      <div css={{ display: "flex", justifyContent: "space-around" }}>
+        {[...Array(25).keys()].map((image, idx) => {
+          console.log(idx + 1);
+          return (
+            <div
+              key={`orig-image-order-${idx}`}
+              css={{
+                width: 50,
+                height: 50,
+                backgroundRepeat: "no-repeat",
+                backgroundImage: `url(/beeCreative${idx + 1}.jpg)`,
+                backgroundPosition: "center",
+                margin: "20px 0",
+                boxShadow: "2px 2px 4px #888888",
+                color: "blue",
+                fontSize: 48,
+              }}
+            >
+              {idx + 1}
+            </div>
+          );
+        })}
+      </div>
+      <QuiltSection />
+    </main>
   );
 }
 

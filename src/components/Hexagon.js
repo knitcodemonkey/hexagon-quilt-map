@@ -1,23 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { css, jsx } from "@emotion/core";
-import getRandomInt from "./util";
 
-const images = [...Array(4).keys()]
-  .map((hkey, hidx) => {
-    const h = `${-hidx * 114 - 1}px`;
-    const w = [...Array(6).keys()].map((wkey, widx) => {
-      return `${-widx * 114 + 55}px ${h}`;
-    });
-
-    return w.join();
-  })
-  .join()
-  .split(",");
-
-console.log(images);
-
-const Hexagon = ({ idx }) => {
+const Hexagon = ({ image, idx }) => {
   return (
     <div
       css={{
@@ -34,6 +18,7 @@ const Hexagon = ({ idx }) => {
     >
       <div
         css={{
+          position: "relative",
           overflow: "hidden",
           width: "100%",
           height: "100%",
@@ -44,22 +29,39 @@ const Hexagon = ({ idx }) => {
           css={{
             width: "100%",
             height: "100%",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: images[getRandomInt(0, images.length)],
+            backgroundRepeat: "repeat",
+            backgroundImage: `url(/beeCreative${image}.jpg)`,
+            backgroundPosition: "center",
             visibility: "visible",
             transform: "rotate(-60deg)",
             backgroundOrigin: "border-box",
             backgroundColor: idx % 2 ? "red" : "blue",
-            backgroundImage: "url(/beeCreative.jpg)",
           }}
-        ></div>
+        >
+          <div
+            css={{
+              position: "absolute",
+              display: "flex",
+              top: "25%",
+              left: "40%",
+              bottom: "25%",
+              rigt: "40%",
+              zIndex: 10,
+              color: "blue",
+              fontSize: 48,
+            }}
+          >
+            {image.randImgNum}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 Hexagon.propTypes = {
-  backgroundImage: PropTypes.string,
+  image: PropTypes.number,
+  idx: PropTypes.number,
 };
 
 export default Hexagon;
