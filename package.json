@@ -1,6 +1,6 @@
 {
   "name": "hexagon-quilt",
-  "homepage": "https://knitcodemonkey.github.io/hexagon-quilt-map/build/",
+  "homepage": "https://knitcodemonkey.github.io/hexagon-quilt-map",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
