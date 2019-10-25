@@ -30,7 +30,7 @@ const Hexagon = ({ image, idx }) => {
             width: "100%",
             height: "100%",
             backgroundRepeat: "repeat",
-            backgroundImage: `url(/images/beeCreative${image}.jpg)`,
+            backgroundImage: `url(./images/beeCreative${image}.jpg)`,
             backgroundPosition: "center",
             visibility: "visible",
             transform: "rotate(-60deg)",
