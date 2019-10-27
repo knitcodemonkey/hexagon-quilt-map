@@ -7,25 +7,28 @@ const QuiltSection = () => {
   const imageList = [];
 
   // single object
-  let prevImage = "";
-  let prevHue = "";
+  let prevImage,
+    prevPrevImage = "";
+  let prevPrevHue,
+    prevHue = "";
+
+  const hueWidth = 5;
+  const notColors = [25];
 
   // get random image
   const getImage = (rowWidth, idx) => {
     const lastRow = [imageList[idx - rowWidth - 1], imageList[idx - rowWidth], imageList[idx - rowWidth + 1]];
-    const lastRowValue = [lastRow[0] % 7, lastRow[1] % 7, lastRow[2] % 7];
+    const lastRowValue = [lastRow[0] % hueWidth, lastRow[1] % hueWidth, lastRow[2] % hueWidth];
 
     let randImgNum = 1;
-    let randImageHue = randImgNum % 5;
+    let randImageHue = randImgNum % hueWidth;
 
     let sameAsLastRow = true;
     let sameAsLastRowHue = true;
 
-    const notColors = [4, 12, 25];
-
     do {
-      randImgNum = getRandomInt(0, 28);
-      randImageHue = randImgNum % 7;
+      randImgNum = getRandomInt(1, 27);
+      randImageHue = randImgNum % hueWidth;
 
       sameAsLastRow = lastRow.indexOf(randImgNum) > -1;
       sameAsLastRowHue = lastRowValue.indexOf(randImageHue) > -1;
@@ -35,17 +38,24 @@ const QuiltSection = () => {
       //   console.log({ prevImage, prevHue, lastRow, lastRowValue });
       //   console.log("*** current Info ***");
       //   console.log({ randImgNum, randImageHue });
+      //   console.log(randImgNum, prevHue, prevPrevHue);
       // }
     } while (
       notColors.indexOf(randImgNum) > -1 ||
-      randImgNum.indexOfrandImgNum === prevImage ||
+      randImgNum === prevImage ||
       randImageHue === prevHue ||
+      randImgNum === prevPrevImage ||
+      // randImageHue === prevPrevHue || // This is, apparently, impossible without breaking a chrome tab
       sameAsLastRow ||
       sameAsLastRowHue
     );
 
+    prevPrevImage = prevImage;
     prevImage = randImgNum;
+
+    prevPrevHue = prevHue;
     prevHue = randImageHue;
+
     imageList.push(randImgNum);
 
     return randImgNum;

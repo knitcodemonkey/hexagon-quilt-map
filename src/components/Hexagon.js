@@ -53,7 +53,7 @@ const Hexagon = ({ image, idx }) => {
               textShadow: "0px 0px 2px white",
             }}
           >
-            {`${image}-${image % 7}`}
+            {`${image}-${image % 5}`}
           </div>
         </div>
       </div>
