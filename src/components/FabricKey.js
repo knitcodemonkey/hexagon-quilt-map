@@ -4,7 +4,7 @@ const FabricKey = ({ counts, hueWidth }) => {
 const width = hueWidth * 120
 
   return (
-    <aside css={{ margin: 'auto', width: width}}>
+    <aside css={{ margin: '100px auto 40px auto', width: width}}>
       <h2 css={{textAlign: 'center'}}>Color Key</h2>
 
       <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 120px)", width: width, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
