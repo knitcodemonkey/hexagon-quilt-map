@@ -1,19 +1,25 @@
 import React from "react";
 
 const FabricKey = ({ counts, hueWidth }) => {
-const width = hueWidth * 100
+const width = hueWidth * 120
 
   return (
-    <aside css={{ marginTop: 100, marginBottom: 50, width: width}}>
+    <aside css={{ margin: 'auto', width: width}}>
       <h2 css={{textAlign: 'center'}}>Color Key</h2>
 
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 100px)", width: width, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
+      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 120px)", width: width, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
         {[...Array(5).keys()].map((image, idx) => {
-          return <div key={`Hue-${(idx + 1) % hueWidth}`} css={{borderBottom: '1px solid grey', marginBottom: 10, paddingBottom: 10}}>{`Hue: ${(idx + 1) % hueWidth}`}</div>;
+          return (
+            <div 
+              key={`Hue-${(idx + 1) % hueWidth}`} 
+              css={{borderBottom: '1px solid grey', marginBottom: 10, paddingBottom: 10}}
+            >{`Hue: ${(idx + 1) % hueWidth}`}</div>
+          )
+
         })}
       </div>
 
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", width: 250 }}>
+      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
         {[...Array(26).keys()].map((image, idx) => {
           const notImg = [25].indexOf(idx + 1) !== -1;
 
@@ -21,31 +27,26 @@ const width = hueWidth * 100
 
           return (
             <div
-              css={{
-                marginBottom: 20,
-              }}
+              css={{ marginBottom: 6 }}
               key={`Image-${idx + 1}`}
             >
               {!notImg && (
                 <div
                   css={{
                     fontWeight: "bold",
-                    color: "blue",
                     fontSize: 16,
                     textShadow: "0px 0px 2px white",
                     textAlign: 'center'
                   }}
                 >
-                  <span>{`Image: ${idx + 1}`}</span>
-                  <br />
-
-                  <span css={{color: (count < 2 || count > 6) && 'red' }}>{`Count: ${counts[idx + 1] || 0}`}</span>
+                  <span>{`#${idx + 1}: `}</span>
+                  <span css={{color: (count < 4 || count > 6) && 'red' }}>{`${counts[idx + 1] || 0} Hexis`}</span>
                 </div>
               )}
               <div
                 key={`orig-image-order-${idx + 1}`}
                 css={{
-                  width: 100,
+                  width: 120,
                   height: 50,
                   backgroundRepeat: "no-repeat",
                   backgroundImage: `url(./images/beeCreative${idx + 1}.jpg)`,
