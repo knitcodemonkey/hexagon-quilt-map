@@ -25,7 +25,7 @@ const QuiltSection = () => {
 
     do {
       randImgNum = getRandomInt(0, 28);
-      randImageHue = randImgNum % 6;
+      randImageHue = randImgNum % 7;
 
       sameAsLastRow = lastRow.indexOf(randImgNum) > -1;
       sameAsLastRowHue = lastRowValue.indexOf(randImageHue) > -1;

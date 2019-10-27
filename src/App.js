@@ -7,10 +7,7 @@ function App() {
     <main>
       <div css={{ display: "flex", justifyContent: "space-around" }}>
         {[...Array(27).keys()].forEach((image, idx) => {
-          if ([4, 12, 25].indexOf(idx) !== -1) {
-            console.log(idx);
-            return;
-          } else {
+          if ([4, 12, 25].indexOf(idx) === -1) {
             return (
               <div
                 key={`orig-image-order-${idx}`}
@@ -18,7 +15,7 @@ function App() {
                   width: 50,
                   height: 50,
                   backgroundRepeat: "no-repeat",
-                  backgroundImage: `url(./images/beeCreative${idx + 1}.jpg)`,
+                  backgroundImage: `url(./images/beeCreative${idx}.jpg)`,
                   backgroundPosition: "center",
                   margin: "20px 0",
                   boxShadow: "2px 2px 4px #888888",
