@@ -28,6 +28,10 @@ function App() {
         <div css={{textAlign: 'center'}}>
           <h1>Hexagon Quilt Randomizer</h1>
           <div>
+            <Subtitle 
+              title="Github:" 
+              description={(<a href="https://github.com/knitcodemonkey/hexagon-quilt-map">https://github.com/knitcodemonkey/hexagon-quilt-map</a>)} 
+            />
             <Subtitle title="Sample Fabric:" description='"Bee Creative" by Modus Fabrics' />
             <Subtitle title="Hexagons Wide:" description={quiltSectionWidth} />
             <Subtitle title="Hexagons Tall:" description={quiltSectionHeight} />
