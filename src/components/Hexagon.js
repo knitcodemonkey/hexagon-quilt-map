@@ -48,10 +48,12 @@ const Hexagon = ({ image, idx }) => {
               rigt: "40%",
               zIndex: 10,
               color: "blue",
-              fontSize: 48,
+              fontSize: 24,
+              fontWeight: 900,
+              textShadow: "0px 0px 2px white",
             }}
           >
-            {image.randImgNum}
+            {`${image}-${image % 7}`}
           </div>
         </div>
       </div>
