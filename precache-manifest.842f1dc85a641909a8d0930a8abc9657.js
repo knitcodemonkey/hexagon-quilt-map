@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6daa0ec644b694777403c93591adfd81",
+    "revision": "6c2114f193a02a3dec148cfcba56999c",
     "url": "/hexagon-quilt-map/index.html"
   },
   {
-    "revision": "19dbeddaae348cb4d0c6",
+    "revision": "7bfb850e3d57b6bec51a",
     "url": "/hexagon-quilt-map/static/css/main.1779617f.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/hexagon-quilt-map/static/js/2.44e47248.chunk.js"
   },
   {
-    "revision": "19dbeddaae348cb4d0c6",
-    "url": "/hexagon-quilt-map/static/js/main.93eae744.chunk.js"
+    "revision": "7bfb850e3d57b6bec51a",
+    "url": "/hexagon-quilt-map/static/js/main.cbe43f4d.chunk.js"
   },
   {
     "revision": "7b94b9ea046c8d618fac",
