@@ -16,7 +16,7 @@ const QuiltSection = () => {
     const lastRowValue = [lastRow[0] % 7, lastRow[1] % 7, lastRow[2] % 7];
 
     let randImgNum = 1;
-    let randImageHue = randImgNum % 7;
+    let randImageHue = randImgNum % 5;
 
     let sameAsLastRow = true;
     let sameAsLastRowHue = true;
