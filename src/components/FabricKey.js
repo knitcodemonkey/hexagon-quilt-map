@@ -4,10 +4,10 @@ const FabricKey = ({ counts, hueWidth }) => {
 const width = hueWidth * 120
 
   return (
-    <aside css={{ margin: '100px auto 40px auto', width: width}}>
-      <h2 css={{textAlign: 'center'}}>Color Key</h2>
+    <aside css={{ margin: 'auto', padding: '1px 20px 20px 20px', width: width, backgroundColor: '#fff', borderRadius: '5px', boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.3)'}}>
+      <h2>Color Key</h2>
 
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 120px)", width: width, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
+      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 120px)", width: width, fontWeight: 'bold', fontSize: 24 }}>
         {[...Array(5).keys()].map((image, idx) => {
           return (
             <div 
@@ -36,7 +36,6 @@ const width = hueWidth * 120
                     fontWeight: "bold",
                     fontSize: 16,
                     textShadow: "0px 0px 2px white",
-                    textAlign: 'center'
                   }}
                 >
                   <span>{`#${idx + 1}: `}</span>

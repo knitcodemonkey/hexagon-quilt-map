@@ -63,7 +63,10 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
         gridTemplateColumns: `repeat(${quiltSectionWidth}, 85px)`,
         gridTemplateRows: `repeat(${quiltSectionHeight}, 100px)`,
         margin: "20px auto",
-        paddingRight: 30
+        paddingTop: 20,
+        paddingBottom: 20,  
+        paddingRight: 30,
+        
       }}
     >
       {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map((num, idx) => {

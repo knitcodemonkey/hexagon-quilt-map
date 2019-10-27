@@ -1,3 +1,11 @@
-.App {
+html, body {
+  background-color: oldlace
+}
+
+* {
   text-align: center;
+}
+
+.App {
+  
 }

@@ -23,6 +23,7 @@ const Hexagon = ({ image, idx }) => {
           width: "100%",
           height: "100%",
           transform: "rotate(-60deg)",
+          backgroundColor: 'transparent',
         }}
       >
         <div
@@ -35,23 +36,21 @@ const Hexagon = ({ image, idx }) => {
             visibility: "visible",
             transform: "rotate(-60deg)",
             backgroundOrigin: "border-box",
-            backgroundColor: idx % 2 ? "red" : "blue",
+            backgroundColor: "transparent",
+
           }}
         >
           <div
             css={{
-              position: "absolute",
               display: "flex",
-              top: "25%",
-              left: "40%",
-              bottom: "25%",
-              rigt: "40%",
+              justifyContent: 'center',
+              alignItems: 'flex-end',
               zIndex: 10,
               color: "blue",
               fontSize: 24,
-              fontWeight: 900,
-              textShadow: "0px 0px 2px white",
-              textAlign: 'center'
+              fontWeight: 'bold',
+              textAlign: 'center',
+              backgroundColor: '#fff'
             }}
           >
             {`${image}-${image % 5}`}
