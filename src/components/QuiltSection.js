@@ -2,7 +2,7 @@ import React from "react";
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
-const QuiltSection = ({ setCounts }) => {
+const QuiltSection = ({ setCounts, hueWidth }) => {
   // array of objects
   let imageList = [];
   // single object
@@ -10,7 +10,6 @@ const QuiltSection = ({ setCounts }) => {
     prevPrevImage = "";
   let prevHue = "";
 
-  const hueWidth = 5;
   const notColors = [25];
 
   // get random image

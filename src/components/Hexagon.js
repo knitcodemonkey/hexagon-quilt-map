@@ -51,6 +51,7 @@ const Hexagon = ({ image, idx }) => {
               fontSize: 24,
               fontWeight: 900,
               textShadow: "0px 0px 2px white",
+              textAlign: 'center'
             }}
           >
             {`${image}-${image % 5}`}

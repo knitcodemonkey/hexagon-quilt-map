@@ -6,6 +6,7 @@ import FabricKey from "./components/FabricKey";
 function App() {
   // Find out number of instances
   let counts = {};
+  const hueWidth = 5;
 
   const setCounts = imgNum => {
     counts[imgNum] = (counts[imgNum] || 0) + 1;
@@ -13,9 +14,9 @@ function App() {
 
   return (
     <main>
-      <QuiltSection setCounts={setCounts} />
+      <QuiltSection setCounts={setCounts} hueWidth={hueWidth} />
 
-      <FabricKey counts={counts} />
+      <FabricKey counts={counts} hueWidth={hueWidth} />
     </main>
   );
 }

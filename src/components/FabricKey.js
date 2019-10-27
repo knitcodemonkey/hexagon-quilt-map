@@ -1,13 +1,13 @@
 import React from "react";
 
-const FabricKey = ({ counts }) => {
+const FabricKey = ({ counts, hueWidth }) => {
   return (
-    <aside css={{ marginTop: 100, marginBottom: 50 }}>
+    <aside css={{ marginTop: 100, marginBottom: 50, width: hueWidth * 50 }}>
       <h2>Color Key</h2>
 
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 100px)", width: 250, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
+      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 100px)", width: hueWidth * 50, textAlign: "center", fontWeight: 'bold', fontSize: 24 }}>
         {[...Array(5).keys()].map((image, idx) => {
-          return <div key={`Hue-${(idx + 1) % 5}`}>{`Hue: ${(idx + 1) % 5}`}</div>;
+          return <div key={`Hue-${(idx + 1) % hueWidth}`} css={{borderBottom: '1px solid grey', marginBottom: 10, paddingBottom: 10}}>{`Hue: ${(idx + 1) % hueWidth}`}</div>;
         })}
       </div>
 
@@ -31,6 +31,7 @@ const FabricKey = ({ counts }) => {
                     color: "blue",
                     fontSize: 16,
                     textShadow: "0px 0px 2px white",
+                    textAlign: 'center'
                   }}
                 >
                   <span>{`Image: ${idx + 1}`}</span>
