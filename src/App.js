@@ -1,35 +1,21 @@
 import React from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
+import FabricKey from "./components/FabricKey";
 
 function App() {
+  // Find out number of instances
+  let counts = {};
+
+  const setCounts = imgNum => {
+    counts[imgNum] = (counts[imgNum] || 0) + 1;
+  };
+
   return (
     <main>
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", width: 250 }}>
-        {[...Array(26).keys()].map((image, idx) => {
-          const notImg = [].indexOf(idx) !== -1;
-          return (
-            !notImg && (
-              <div
-                key={`orig-image-order-${idx + 1}`}
-                css={{
-                  width: 50,
-                  height: 50,
-                  backgroundRepeat: "no-repeat",
-                  backgroundImage: `url(./images/beeCreative${idx + 1}.jpg)`,
-                  backgroundPosition: "center",
+      <QuiltSection setCounts={setCounts} />
 
-                  color: "blue",
-                  fontSize: 48,
-                }}
-              >
-                {idx + 1}
-              </div>
-            )
-          );
-        })}
-      </div>
-      <QuiltSection />
+      <FabricKey counts={counts} />
     </main>
   );
 }

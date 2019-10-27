@@ -2,15 +2,13 @@ import React from "react";
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
-const QuiltSection = () => {
+const QuiltSection = ({ setCounts }) => {
   // array of objects
-  const imageList = [];
-
+  let imageList = [];
   // single object
   let prevImage,
     prevPrevImage = "";
-  let prevPrevHue,
-    prevHue = "";
+  let prevHue = "";
 
   const hueWidth = 5;
   const notColors = [25];
@@ -52,11 +50,11 @@ const QuiltSection = () => {
 
     prevPrevImage = prevImage;
     prevImage = randImgNum;
-
-    prevPrevHue = prevHue;
     prevHue = randImageHue;
 
     imageList.push(randImgNum);
+
+    setCounts(randImgNum);
 
     return randImgNum;
   };
