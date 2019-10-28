@@ -31,7 +31,7 @@ function App() {
   let counts = {};
   const hueWidth = 5;
   const [quiltSectionWidth, setQuiltSectionWidth] = useState(18);
-  const [quiltSectionHeight, setquiltSectionHeight] = useState(7);
+  const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
 
   const setCounts = imgNum => {
@@ -48,12 +48,21 @@ function App() {
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          width: "calc(100% - 40px)",
+          width: "94vw",
+          flexWrap: "wrap",
         }}
       >
         <div>
           <h1>Hexagon Quilt Randomizer</h1>
           <div>
+            <Subtitle
+              title="Website:"
+              description={
+                <a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">
+                  https://knitcodemonkey.github.io/hexagon-quilt-map/
+                </a>
+              }
+            />
             <Subtitle
               title="Github:"
               description={
@@ -62,28 +71,37 @@ function App() {
                 </a>
               }
             />
-            <Subtitle title="Sample Fabric:" description='"Bee Creative" by Deb Strain' />
-            <Subtitle title="Hexagons Wide:" description={quiltSectionWidth} />
-            <Subtitle title="Hexagons Tall:" description={quiltSectionHeight} />
           </div>
         </div>
 
-        <form>
+        <form css={{ minWidth: 500 }}>
           <FormItem label="Hexagons Wide:">
-            <input type="text" value={quiltSectionWidth} onChange={event => setQuiltSectionWidth(event.target.value)} />
+            <select value={quiltSectionWidth} onChange={event => setQuiltSectionWidth(event.target.value)}>
+              {[...Array(30).keys()].map(num => {
+                return (
+                  <option key={`wide-${num + 1}`} value={num + 1}>
+                    {num + 1}
+                  </option>
+                );
+              })}
+            </select>
           </FormItem>
 
           <FormItem label="Hexagons Tall:">
-            <input
-              type="text"
-              value={quiltSectionHeight}
-              onChange={event => setquiltSectionHeight(event.target.value)}
-            />
+            <select value={quiltSectionHeight} onChange={event => setQuiltSectionHeight(event.target.value)}>
+              {[...Array(30).keys()].map(num => {
+                return (
+                  <option key={`tall-${num + 1}`} value={num + 1}>
+                    {num + 1}
+                  </option>
+                );
+              })}
+            </select>
           </FormItem>
 
           <FormItem label="Fabric:">
             <select value={fabric} onChange={event => setFabric(event.target.value)}>
-              <option value={"beeCreative"}>Bee Creative by Deb Strain</option>
+              <option value={"beeCreative"}>"Bee Creative" by Deb Strain</option>
             </select>
           </FormItem>
 
