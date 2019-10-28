@@ -75,7 +75,7 @@ const FabricKey = ({ counts, hueWidth, fabric }) => {
 };
 
 FabricKey.propTypes = {
-  counts: PropTypes.array,
+  counts: PropTypes.object,
   hueWidth: PropTypes.number,
   fabric: PropTypes.string,
 };
