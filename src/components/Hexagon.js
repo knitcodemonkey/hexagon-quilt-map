@@ -1,24 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Hexagon = ({ image, idx, fabric, debug }) => {
+const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
+  // if even number wide, true.
+  // if not even number wide, make even every other row.
+  const isEven = quiltSectionWidth % 2 === 0 || Math.floor(idx / quiltSectionWidth) % 2 === 0;
   return (
     <div
-      css={{
-        position: "relative",
-        clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-        overflow: "hidden",
-        width: 115,
-        height: 102,
-        margin: 0,
-        backgroundRepeat: "repeat",
-        backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
-        backgroundPosition: "center",
-
-        ":nth-child(even)": {
-          marginTop: 51,
+      css={[
+        {
+          position: "relative",
+          clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+          overflow: "hidden",
+          width: 115,
+          height: 102,
+          margin: 0,
+          backgroundRepeat: "repeat",
+          backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
+          backgroundPosition: "center",
         },
-      }}
+        isEven
+          ? {
+              "&:nth-of-type(even)": {
+                marginTop: 51,
+              },
+            }
+          : {
+              "&:nth-of-type(odd)": {
+                marginTop: 51,
+              },
+            },
+      ]}
     >
       {debug === true && (
         <div
@@ -52,6 +64,7 @@ Hexagon.propTypes = {
   idx: PropTypes.number,
   fabric: PropTypes.string,
   debug: PropTypes.bool,
+  quiltSectionWidth: PropTypes.number,
 };
 
 export default Hexagon;

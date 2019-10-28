@@ -17,7 +17,9 @@ const Subtitle = ({ title, description }) => (
 
 const FormItem = ({ label, children }) => {
   return (
-    <label css={{ display: "flex", justifyContent: "flex-start", alignItems: "center", marginTop: 10, marginBottom: 10  }}>
+    <label
+      css={{ display: "flex", justifyContent: "flex-start", alignItems: "center", marginTop: 10, marginBottom: 10 }}
+    >
       <p css={{ margin: 0, padding: 0, width: 200, textAlign: "right" }}>{label}</p>
       {children}
     </label>
@@ -46,7 +48,7 @@ function App() {
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
-          width: 'calc(100% - 40px)',
+          width: "calc(100% - 40px)",
         }}
       >
         <div>
@@ -80,7 +82,7 @@ function App() {
           </FormItem>
 
           <FormItem label="Fabric:">
-            <select value={fabric} onChange={(event) => setFabric(event.target.value)}>
+            <select value={fabric} onChange={event => setFabric(event.target.value)}>
               <option value={"beeCreative"}>Bee Creative by Deb Strain</option>
             </select>
           </FormItem>
@@ -98,8 +100,7 @@ function App() {
         css={{
           borderTop: "1px solid rgba(0, 0, 0, 0.3)",
           borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
-          paddingBottom: 55,
-          margin: "20px auto",
+          paddingBottom: "56px",
         }}
       >
         <QuiltSection

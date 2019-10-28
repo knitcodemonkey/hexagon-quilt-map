@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
@@ -15,7 +15,6 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
 
   // get random image
   const getImage = (rowWidth, idx) => {
-
     // get 3 hexis touching top of current hexi
     const lastRow = [imageList[idx - rowWidth - 1], imageList[idx - rowWidth], imageList[idx - rowWidth + 1]];
     const lastRowValue = [lastRow[0] % hueWidth, lastRow[1] % hueWidth, lastRow[2] % hueWidth];
@@ -34,7 +33,6 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
       // set params for easier "while" use
       sameAsLastRow = lastRow.indexOf(randImgNum) > -1;
       sameAsLastRowHue = lastRowValue.indexOf(randImageHue) > -1;
-
     } while (
       notColors.indexOf(randImgNum) > -1 ||
       randImgNum === prevImage ||
@@ -59,32 +57,40 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
     <div
       className="Quilt"
       css={{
-        width: quiltSectionWidth * 85,
+        minWidth: quiltSectionWidth * 85,
         display: "grid",
         gridTemplateColumns: `repeat(${quiltSectionWidth}, 85px)`,
-        gridTemplateRows: `repeat(${quiltSectionHeight}, 100px)`,
+        gridTemplateRows: `repeat(${quiltSectionHeight}, 102px)`,
         margin: "20px auto",
         paddingTop: 20,
-        paddingBottom: 20,  
+        paddingBottom: 20,
         paddingRight: 30,
-        
       }}
     >
       {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map((num, idx) => {
         const hexiImage = getImage(quiltSectionWidth, idx);
-        return <Hexagon key={`hexi-key-${num}`} idx={idx} image={hexiImage} debug={debug} fabric={fabric} />;
+        return (
+          <Hexagon
+            key={`hexi-key-${num}`}
+            quiltSectionWidth={quiltSectionWidth}
+            idx={idx}
+            image={hexiImage}
+            debug={debug}
+            fabric={fabric}
+          />
+        );
       })}
     </div>
   );
 };
 
 QuiltSection.propTypes = {
-  setCounts: PropTypes.func, 
-  hueWidth: PropTypes.number, 
-  quiltSectionWidth: PropTypes.number, 
-  quiltSectionHeight: PropTypes.number, 
+  setCounts: PropTypes.func,
+  hueWidth: PropTypes.number,
+  quiltSectionWidth: PropTypes.number,
+  quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
-  debug: PropTypes.bool
-}
+  debug: PropTypes.bool,
+};
 
 export default QuiltSection;
