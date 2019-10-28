@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
 import FabricKey from "./components/FabricKey";
@@ -23,10 +23,12 @@ function App() {
     counts[imgNum] = (counts[imgNum] || 0) + 1;
   };
 
+  const [debug, setDebug] = useState(false)
+
   return (
     <main className="App">
       <header css={{ margin: '20px auto', display: 'flex', justifyContent: 'space-around', alignItems: 'center', width: quiltSectionWidth * 85}}>
-        <div css={{}}>
+        <div css={{width: '50%'}}>
           <h1>Hexagon Quilt Randomizer</h1>
           <div>
             <Subtitle 
@@ -39,6 +41,14 @@ function App() {
             
           </div>
         </div>
+        <form css={{width: '50%'}}>
+          <label>
+            <select value={debug} onChange={ event => setDebug(event.target.value) }>
+              <option value={true}>True</option>
+              <option value={false}>False</option>
+            </select>
+          </label>
+        </form>
       </header>
       <article css={{
         borderTop: '1px solid rgba(0, 0, 0, 0.3)',
@@ -46,7 +56,7 @@ function App() {
         paddingBottom: 55,
         margin: '20px auto'
       }}>
-        <QuiltSection setCounts={setCounts} hueWidth={hueWidth} quiltSectionWidth={quiltSectionWidth} quiltSectionHeight={quiltSectionHeight} />
+        <QuiltSection setCounts={setCounts} hueWidth={hueWidth} quiltSectionWidth={quiltSectionWidth} quiltSectionHeight={quiltSectionHeight} debug={debug} />
       </article>
 
       <footer css={{

@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Hexagon = ({ image, idx }) => {
+const Hexagon = ({ image, idx, debug }) => {
+
+  console.log(debug)
+
   return (
     <div
       css={{
@@ -40,7 +43,8 @@ const Hexagon = ({ image, idx }) => {
 
           }}
         >
-          <div
+        {debug &&
+          (<div
             css={{
               display: "flex",
               justifyContent: 'center',
@@ -53,8 +57,9 @@ const Hexagon = ({ image, idx }) => {
               backgroundColor: '#fff'
             }}
           >
-            {`${image}-${image % 5}`}
-          </div>
+            {`${image}`}
+          </div>)
+        }
         </div>
       </div>
     </div>
@@ -64,6 +69,7 @@ const Hexagon = ({ image, idx }) => {
 Hexagon.propTypes = {
   image: PropTypes.number,
   idx: PropTypes.number,
+  debug: PropTypes.bool
 };
 
 export default Hexagon;

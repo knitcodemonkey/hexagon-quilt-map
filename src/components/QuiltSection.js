@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
-const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight }) => {
+const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, debug }) => {
   // array of objects
   let imageList = [];
   // single object
@@ -71,10 +72,18 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
     >
       {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map((num, idx) => {
         const hexiImage = getImage(quiltSectionWidth, idx);
-        return <Hexagon key={`hexi-key-${num}`} idx={idx} image={hexiImage} />;
+        return <Hexagon key={`hexi-key-${num}`} idx={idx} image={hexiImage} debug={debug} />;
       })}
     </div>
   );
 };
+
+QuiltSection.propTypes = {
+  setCounts: PropTypes.func, 
+  hueWidth: PropTypes.number, 
+  quiltSectionWidth: PropTypes.number, 
+  quiltSectionHeight: PropTypes.number, 
+  debug: PropTypes.bool
+}
 
 export default QuiltSection;
