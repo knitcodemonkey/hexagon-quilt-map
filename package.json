@@ -1,7 +1,7 @@
 {
   "name": "hexagon-quilt",
   "homepage": "https://knitcodemonkey.github.io/hexagon-quilt-map/",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.22",
@@ -14,7 +14,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "predeploy": "yarn build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
