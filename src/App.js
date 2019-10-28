@@ -101,6 +101,7 @@ function App() {
           borderTop: "1px solid rgba(0, 0, 0, 0.3)",
           borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
           paddingBottom: "56px",
+          margin: "0 auto",
         }}
       >
         <QuiltSection
