@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
-const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, fabric, debug }) => {
+const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, fabric, debug, shape }) => {
   // array of objects
   let imageList = [];
   // single object
@@ -57,10 +57,10 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
     <div
       className="Quilt"
       css={{
-        minWidth: quiltSectionWidth * 85,
+        width: "94vw",
         display: "grid",
-        gridTemplateColumns: `repeat(${quiltSectionWidth}, 85px)`,
-        gridTemplateRows: `repeat(${quiltSectionHeight}, 102px)`,
+        gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(94vw / ${quiltSectionWidth} ))`,
+        gridTemplateRows: `repeat(${quiltSectionHeight}, calc(40 * (125vw / ${quiltSectionWidth}) / 45))`,
         margin: "20px auto",
         paddingTop: 20,
         paddingBottom: 20,
