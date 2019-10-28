@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { relative } from "path";
 
 const Hexagon = ({ image, idx, fabric, debug }) => {
   return (
