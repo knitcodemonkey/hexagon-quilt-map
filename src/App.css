@@ -1,5 +1,6 @@
-html, body {
-  background-color: oldlace
+html,
+body {
+  background-color: oldlace;
 }
 
 * {
@@ -7,5 +8,14 @@ html, body {
 }
 
 .App {
-  
+}
+
+form {
+  font-size: 1.2rem;
+}
+
+select,
+input {
+  margin-left: 10px;
+  font-size: 1.2rem;
 }

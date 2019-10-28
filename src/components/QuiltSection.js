@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Hexagon from "./Hexagon";
 import getRandomInt from "./util";
 
-const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, debug }) => {
+const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, fabric, debug }) => {
   // array of objects
   let imageList = [];
   // single object
@@ -72,7 +72,7 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
     >
       {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map((num, idx) => {
         const hexiImage = getImage(quiltSectionWidth, idx);
-        return <Hexagon key={`hexi-key-${num}`} idx={idx} image={hexiImage} debug={debug} />;
+        return <Hexagon key={`hexi-key-${num}`} idx={idx} image={hexiImage} debug={debug} fabric={fabric} />;
       })}
     </div>
   );
@@ -83,6 +83,7 @@ QuiltSection.propTypes = {
   hueWidth: PropTypes.number, 
   quiltSectionWidth: PropTypes.number, 
   quiltSectionHeight: PropTypes.number, 
+  fabric: PropTypes.string,
   debug: PropTypes.bool
 }
 
