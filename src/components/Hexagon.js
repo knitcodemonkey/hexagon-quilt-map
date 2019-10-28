@@ -10,7 +10,7 @@ const Hexagon = ({ image, idx, fabric, debug }) => {
         overflow: "hidden",
         width: 115,
         height: 102,
-        margin: `0 0 0 -27px`,
+        margin: 0,
         backgroundRepeat: "repeat",
         backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
         backgroundPosition: "center",
