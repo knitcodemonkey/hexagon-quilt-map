@@ -16,7 +16,7 @@ const Hexagon = ({ image, idx, fabric, debug }) => {
         backgroundPosition: "center",
 
         ":nth-child(even)": {
-          marginTop: 50,
+          marginTop: 51,
         },
       }}
     >
