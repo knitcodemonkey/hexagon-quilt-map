@@ -60,7 +60,7 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
         width: "94vw",
         display: "grid",
         gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(94vw / ${quiltSectionWidth} ))`,
-        gridTemplateRows: `repeat(${quiltSectionHeight}, calc(40 * (125vw / ${quiltSectionWidth}) / 45))`,
+        gridTemplateRows: `repeat(${quiltSectionHeight}, calc(8 * (125vw / ${quiltSectionWidth}) / 9))`,
         margin: "20px auto",
         paddingTop: 20,
         paddingBottom: 20,

@@ -13,7 +13,7 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
           position: "relative",
           clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
           width: `calc(125vw / ${quiltSectionWidth})`,
-          height: `calc((40 * (125vw / ${quiltSectionWidth})) / 45)`,
+          height: `calc((8 * (125vw / ${quiltSectionWidth})) / 9)`,
           margin: 0,
           backgroundRepeat: "repeat",
           backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
@@ -22,12 +22,12 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
         isEven
           ? {
               "&:nth-of-type(even)": {
-                marginTop: `calc((40 * 125vw / ${quiltSectionWidth}) / 45 / 2)`,
+                marginTop: `calc((8 * 125vw / ${quiltSectionWidth}) / 9 / 2)`,
               },
             }
           : {
               "&:nth-of-type(odd)": {
-                marginTop: `calc((40 * 125vw / ${quiltSectionWidth}) / 45 / 2)`,
+                marginTop: `calc((8 * 125vw / ${quiltSectionWidth}) / 9 / 2)`,
               },
             },
       ]}
