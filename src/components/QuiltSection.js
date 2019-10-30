@@ -1,9 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Hexagon from "./Hexagon";
+import Square from "./Square";
 import getRandomInt from "./util";
 
-const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeight, fabric, debug, shape }) => {
+const QuiltSection = ({
+  setCounts,
+  hueWidth,
+  quiltSectionWidth,
+  quiltSectionHeight,
+  fabric,
+  debug,
+  shape
+}) => {
   // array of objects
   let imageList = [];
   // single object
@@ -16,8 +25,16 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
   // get random image
   const getImage = (rowWidth, idx) => {
     // get 3 hexis touching top of current hexi
-    const lastRow = [imageList[idx - rowWidth - 1], imageList[idx - rowWidth], imageList[idx - rowWidth + 1]];
-    const lastRowValue = [lastRow[0] % hueWidth, lastRow[1] % hueWidth, lastRow[2] % hueWidth];
+    const lastRow = [
+      imageList[idx - rowWidth - 1],
+      imageList[idx - rowWidth],
+      imageList[idx - rowWidth + 1]
+    ];
+    const lastRowValue = [
+      lastRow[0] % hueWidth,
+      lastRow[1] % hueWidth,
+      lastRow[2] % hueWidth
+    ];
 
     // Set default random values
     let randImgNum = 1;
@@ -64,22 +81,36 @@ const QuiltSection = ({ setCounts, hueWidth, quiltSectionWidth, quiltSectionHeig
         margin: "20px auto",
         paddingTop: 20,
         paddingBottom: 20,
-        paddingRight: 30,
+        paddingRight: 30
       }}
     >
-      {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map((num, idx) => {
-        const hexiImage = getImage(quiltSectionWidth, idx);
-        return (
-          <Hexagon
-            key={`hexi-key-${num}`}
-            quiltSectionWidth={quiltSectionWidth}
-            idx={idx}
-            image={hexiImage}
-            debug={debug}
-            fabric={fabric}
-          />
-        );
-      })}
+      {[...Array(quiltSectionWidth * quiltSectionHeight).keys()].map(
+        (num, idx) => {
+          const hexiImage = getImage(quiltSectionWidth, idx);
+          if (shape === "Hexagon")
+            return (
+              <Hexagon
+                key={`hexi-key-${num}`}
+                quiltSectionWidth={quiltSectionWidth}
+                idx={idx}
+                image={hexiImage}
+                debug={debug}
+                fabric={fabric}
+              />
+            );
+          else
+            return (
+              <Square
+                key={`hexi-key-${num}`}
+                quiltSectionWidth={quiltSectionWidth}
+                idx={idx}
+                image={hexiImage}
+                debug={debug}
+                fabric={fabric}
+              />
+            );
+        }
+      )}
     </div>
   );
 };
@@ -91,6 +122,7 @@ QuiltSection.propTypes = {
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
   debug: PropTypes.bool,
+  shape: PropTypes.string
 };
 
 export default QuiltSection;
