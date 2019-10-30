@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
 import FabricKey from "./components/FabricKey";
+import { regenerateAllImages, generateAllImages, getImageCounts } from "./components/generateImages";
 
 const Subtitle = ({ title, description }) => (
   <p
@@ -36,16 +37,16 @@ const FormItem = ({ label, children }) => {
 
 function App() {
   // Find out number of instances
-  let counts = {};
+  const [counts, setImageCounts] = useState(getImageCounts());
   const hueWidth = 5;
   const [quiltSectionWidth, setQuiltSectionWidth] = useState(18);
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
   const [shape, setShape] = useState("Hexagon");
 
-  const setCounts = imgNum => {
-    counts[imgNum] = (counts[imgNum] || 0) + 1;
-  };
+  const [imageList, updateImageList] = useState(
+    generateAllImages({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors: [25] })
+  );
 
   const [debug, setDebug] = useState(false);
 
@@ -104,7 +105,7 @@ function App() {
               value={quiltSectionHeight}
               onChange={event => setQuiltSectionHeight(event.target.value)}
             >
-              {[...Array(30).keys()].map(num => {
+              {[...Array(100).keys()].map(num => {
                 return (
                   <option key={`tall-${num + 1}`} value={num + 1}>
                     {num + 1}
@@ -141,6 +142,23 @@ function App() {
               <option value={false}>No</option>
             </select>
           </FormItem>
+
+          <button
+            type="button"
+            onClick={() => {
+              const newImageList = regenerateAllImages({
+                hueWidth,
+                quiltSectionWidth,
+                quiltSectionHeight,
+                notColors: [25],
+              });
+              updateImageList(newImageList);
+
+              setImageCounts(getImageCounts());
+            }}
+          >
+            Randomize Fabric Placement
+          </button>
         </form>
       </header>
 
@@ -153,13 +171,14 @@ function App() {
         }}
       >
         <QuiltSection
-          setCounts={setCounts}
+          key={`QuiltSection-${imageList.length}`}
           hueWidth={hueWidth}
           quiltSectionWidth={quiltSectionWidth}
           quiltSectionHeight={quiltSectionHeight}
           debug={debug}
           fabric={fabric}
           shape={shape}
+          imageList={imageList}
         />
       </article>
 
