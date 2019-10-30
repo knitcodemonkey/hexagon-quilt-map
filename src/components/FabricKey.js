@@ -40,8 +40,6 @@ const FabricKey = ({ counts, hueWidth, fabric }) => {
         {[...Array(26).keys()].map((image, idx) => {
           const notImg = [25].indexOf(idx + 1) !== -1;
 
-          const count = counts[idx + 1] || 0;
-
           return (
             <div css={{ marginBottom: 6 }} key={`Image-${idx + 1}`}>
               {!notImg && (
@@ -53,7 +51,8 @@ const FabricKey = ({ counts, hueWidth, fabric }) => {
                   }}
                 >
                   <span>{`#${idx + 1}: `}</span>
-                  <span css={{ color: (count < 4 || count > 6) && "red" }}>{`${counts[idx + 1] || 0} Hexis`}</span>
+                  <span css={{ color: (counts[idx + 1] < 4 || counts[idx + 1] > 6) && "red" }}>{`${counts[idx + 1] ||
+                    0} Hexis`}</span>
                 </div>
               )}
               <div
