@@ -112,4 +112,18 @@ const removeImageList = () => {
   window.localStorage.removeItem("imageList");
 };
 
-export { generateRandomImage, generateAllImages, getImageList, regenerateAllImages };
+/**
+ * @returns {object} object of counts for key
+ */
+const getImageCounts = () => {
+  const imageList = getImageList();
+  let counts = {};
+
+  imageList.forEach(val => {
+    counts[val] = counts[val] + 1 || 1;
+  });
+
+  return counts;
+};
+
+export { generateRandomImage, generateAllImages, getImageList, regenerateAllImages, getImageCounts };

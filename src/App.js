@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
 import FabricKey from "./components/FabricKey";
-import { regenerateAllImages, generateAllImages } from "./components/generateImages";
+import { regenerateAllImages, generateAllImages, getImageCounts } from "./components/generateImages";
 
 const Subtitle = ({ title, description }) => (
   <p
@@ -29,15 +29,11 @@ const FormItem = ({ label, children }) => {
 
 function App() {
   // Find out number of instances
-  const [counts, setCounts] = useState({});
+  const [counts, setImageCounts] = useState(getImageCounts());
   const hueWidth = 5;
   const [quiltSectionWidth, setQuiltSectionWidth] = useState(18);
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
-
-  const updateCounts = imgNum => {
-    setCounts({ ...counts, [imgNum]: counts[imgNum]++ || 1 });
-  };
 
   const [imageList, updateImageList] = useState(
     generateAllImages({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors: [25] })
@@ -117,22 +113,22 @@ function App() {
             </select>
           </FormItem>
 
-          <FormItem>
-            <button
-              type="button"
-              onClick={() => {
-                const newImageList = regenerateAllImages({
-                  hueWidth,
-                  quiltSectionWidth,
-                  quiltSectionHeight,
-                  notColors: [25],
-                });
-                updateImageList(newImageList);
-              }}
-            >
-              Randomize Fabric Placement
-            </button>
-          </FormItem>
+          <button
+            type="button"
+            onClick={() => {
+              const newImageList = regenerateAllImages({
+                hueWidth,
+                quiltSectionWidth,
+                quiltSectionHeight,
+                notColors: [25],
+              });
+              updateImageList(newImageList);
+
+              setImageCounts(getImageCounts());
+            }}
+          >
+            Randomize Fabric Placement
+          </button>
         </form>
       </header>
 
@@ -146,7 +142,6 @@ function App() {
       >
         <QuiltSection
           key={`QuiltSection-${imageList.length}`}
-          setCounts={updateCounts}
           hueWidth={hueWidth}
           quiltSectionWidth={quiltSectionWidth}
           quiltSectionHeight={quiltSectionHeight}
