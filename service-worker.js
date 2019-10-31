@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hexagon-quilt-map/precache-manifest.49f0e523acdebc3bedf6679bd77e65fc.js"
+  "/hexagon-quilt-map/precache-manifest.5da0430055594e50eed1c502b63f2397.js"
 );
 
 self.addEventListener('message', (event) => {
