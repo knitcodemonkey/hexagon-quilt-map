@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Hexagon from "./Hexagon";
+import Square from "./Square";
 
 const QuiltSection = ({ imageList, quiltSectionWidth, quiltSectionHeight, fabric, debug, shape }) => {
   return (
@@ -14,19 +15,37 @@ const QuiltSection = ({ imageList, quiltSectionWidth, quiltSectionHeight, fabric
         margin: "20px auto",
         paddingTop: 20,
         paddingBottom: 20,
-        paddingRight: 30,
+        paddingRight: 30
       }}
     >
-      {imageList.map((image, idx) => (
-        <Hexagon
-          key={`hexi-key-${image}-${idx}`}
-          quiltSectionWidth={quiltSectionWidth}
-          idx={idx}
-          image={image}
-          debug={debug}
-          fabric={fabric}
-        />
-      ))}
+      {imageList.map(
+        (num, idx) => {
+          const hexiImage = getImage(quiltSectionWidth, idx);
+          if (shape === "Hexagon")
+            return (
+              <Hexagon
+                key={`hexi-key-${num}-${idx}`}
+                quiltSectionWidth={quiltSectionWidth}
+                idx={idx}
+                image={hexiImage}
+                debug={debug}
+                fabric={fabric}
+              />
+            );
+          else
+            return (
+              <Square
+                key={`hexi-key-${num}`}
+                quiltSectionWidth={quiltSectionWidth}
+                idx={idx}
+                image={hexiImage}
+                debug={debug}
+                fabric={fabric}
+              />
+            );
+        }
+      )}
+
     </div>
   );
 };
@@ -38,6 +57,7 @@ QuiltSection.propTypes = {
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
   debug: PropTypes.bool,
+  shape: PropTypes.string
 };
 
 export default QuiltSection;
