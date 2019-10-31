@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
 import FabricKey from "./components/FabricKey";
-import { regenerateAllImages, generateAllImages, getImageCounts } from "./components/generateImages";
+import { regenerateAllImages, generateAllImages, getImageCounts } from "./utils/generateImages";
 
 const Subtitle = ({ title, description }) => (
   <p
@@ -36,7 +36,6 @@ const FormItem = ({ label, children }) => {
 function App() {
   // Find out number of instances
   const [counts, setImageCounts] = useState(getImageCounts());
-  const hueWidth = 5;
   const [quiltSectionWidth, setQuiltSectionWidth] = useState(18);
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
@@ -45,8 +44,8 @@ function App() {
   const [imageList, updateImageList] = useState([]);
 
   useEffect(() => {
-    updateImageList(generateAllImages({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors: [25] }));
-  }, [quiltSectionWidth, quiltSectionHeight]);
+    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
+  }, [quiltSectionWidth, quiltSectionHeight, fabric]);
 
   const [debug, setDebug] = useState(false);
 
@@ -143,10 +142,9 @@ function App() {
             type="button"
             onClick={() => {
               const newImageList = regenerateAllImages({
-                hueWidth,
                 quiltSectionWidth,
                 quiltSectionHeight,
-                notColors: [25],
+                fabric,
               });
               updateImageList(newImageList);
 
@@ -168,7 +166,6 @@ function App() {
       >
         <QuiltSection
           key={`QuiltSection-${imageList.length}`}
-          hueWidth={hueWidth}
           quiltSectionWidth={quiltSectionWidth}
           quiltSectionHeight={quiltSectionHeight}
           debug={debug}
@@ -184,7 +181,7 @@ function App() {
           marginBottom: 40,
         }}
       >
-        <FabricKey counts={counts} hueWidth={hueWidth} fabric={fabric} />
+        <FabricKey counts={counts} fabric={fabric} />
       </footer>
     </main>
   );

@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import specs from "../utils/specs";
 
-const FabricKey = ({ counts, hueWidth, fabric }) => {
+const FabricKey = ({ counts, fabric }) => {
+  const { fabricCount, notImage, hueWidth } = specs[fabric];
+
+  console.log(specs[fabric]);
   const width = hueWidth * 120;
 
   return (
@@ -26,10 +30,10 @@ const FabricKey = ({ counts, hueWidth, fabric }) => {
           fontSize: 24,
         }}
       >
-        {[...Array(5).keys()].map((image, idx) => {
+        {[...Array(hueWidth).keys()].map(idx => {
           return (
             <div
-              key={`Hue-${(idx + 1) % hueWidth}`}
+              key={`Hue-Header-${(idx + 1) % hueWidth}`}
               css={{ borderBottom: "1px solid grey", marginBottom: 10, paddingBottom: 10 }}
             >{`Hue: ${(idx + 1) % hueWidth}`}</div>
           );
@@ -37,8 +41,8 @@ const FabricKey = ({ counts, hueWidth, fabric }) => {
       </div>
 
       <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
-        {[...Array(26).keys()].map((image, idx) => {
-          const notImg = [25].indexOf(idx + 1) !== -1;
+        {[...Array(fabricCount).keys()].map(idx => {
+          const notImg = notImage.indexOf(idx + 1) !== -1;
 
           return (
             <div css={{ marginBottom: 6 }} key={`Image-${idx + 1}`}>

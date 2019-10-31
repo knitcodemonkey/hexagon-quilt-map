@@ -68,7 +68,6 @@ const QuiltSection = ({ imageList, quiltSectionWidth, quiltSectionHeight, fabric
 
 QuiltSection.propTypes = {
   setCounts: PropTypes.func,
-  hueWidth: PropTypes.number,
   quiltSectionWidth: PropTypes.number,
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,

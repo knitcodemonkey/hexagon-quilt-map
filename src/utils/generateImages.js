@@ -1,4 +1,5 @@
-import getRandomInt from "./util";
+import getRandomInt from "./getRandomInt";
+import specs from "./specs";
 
 /**
  * Generates a single random image for generateAllImages()
@@ -10,7 +11,8 @@ import getRandomInt from "./util";
  *
  * @returns {int}
  */
-const generateRandomImage = ({ idx, rowWidth, hueWidth, notColors }) => {
+const generateRandomImage = ({ idx, rowWidth, fabric }) => {
+  const { hueWidth, notImage, fabricCount } = specs[fabric];
   let imageList = getImageList();
 
   // get 3 hexis touching top of current hexi
@@ -35,13 +37,13 @@ const generateRandomImage = ({ idx, rowWidth, hueWidth, notColors }) => {
 
   do {
     // Get random values
-    randImgNum = getRandomInt(1, 27);
+    randImgNum = getRandomInt(1, fabricCount + 1);
     randImageHue = randImgNum % hueWidth;
 
     // set params for easier "while" use
     sameAsLastRow = touchingSpaces.indexOf(randImgNum) > -1;
     sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1;
-  } while (notColors.indexOf(randImgNum) > -1 || sameAsLastRow || sameAsLastRowHue);
+  } while (notImage.indexOf(randImgNum) > -1 || sameAsLastRow || sameAsLastRowHue);
   return randImgNum;
 };
 
@@ -55,12 +57,12 @@ const generateRandomImage = ({ idx, rowWidth, hueWidth, notColors }) => {
  *
  * @returns {array}
  */
-const generateAllImages = ({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors }) => {
+const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight }) => {
   const imageList = getImageList();
   const newImageList = [];
 
   [...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach(idx => {
-    const data = { idx, rowWidth: quiltSectionWidth, hueWidth, notColors, imageList };
+    const data = { idx, rowWidth: quiltSectionWidth, fabric };
     const image = imageList[idx] || generateRandomImage(data);
     newImageList.push(image);
     setImageList(newImageList);
