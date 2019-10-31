@@ -9,7 +9,7 @@ const Subtitle = ({ title, description }) => (
     css={{
       margin: 10,
       padding: 0,
-      fontSize: "1.2rem"
+      fontSize: "1.2rem",
     }}
   >
     <span css={{ fontWeight: "bold" }}>{title}</span> {description}
@@ -24,12 +24,10 @@ const FormItem = ({ label, children }) => {
         justifyContent: "flex-start",
         alignItems: "center",
         marginTop: 10,
-        marginBottom: 10
+        marginBottom: 10,
       }}
     >
-      <p css={{ margin: 0, padding: 0, width: 200, textAlign: "right" }}>
-        {label}
-      </p>
+      <p css={{ margin: 0, padding: 0, width: 200, textAlign: "right" }}>{label}</p>
       {children}
     </label>
   );
@@ -59,11 +57,11 @@ function App() {
           justifyContent: "space-around",
           alignItems: "center",
           width: "94vw",
-          flexWrap: "wrap"
+          flexWrap: "wrap",
         }}
       >
         <div>
-          <h1>Hexagon Quilt Randomizer</h1>
+          <h1>Quilt Fabric Randomizer</h1>
           <div>
             <Subtitle
               title="Website:"
@@ -86,10 +84,7 @@ function App() {
 
         <form css={{ minWidth: 500 }}>
           <FormItem label="Generated Width:">
-            <select
-              value={quiltSectionWidth}
-              onChange={event => setQuiltSectionWidth(event.target.value)}
-            >
+            <select value={quiltSectionWidth} onChange={event => setQuiltSectionWidth(event.target.value)}>
               {[...Array(30).keys()].map(num => {
                 return (
                   <option key={`wide-${num + 1}`} value={num + 1}>
@@ -101,10 +96,7 @@ function App() {
           </FormItem>
 
           <FormItem label="Generated Height:">
-            <select
-              value={quiltSectionHeight}
-              onChange={event => setQuiltSectionHeight(event.target.value)}
-            >
+            <select value={quiltSectionHeight} onChange={event => setQuiltSectionHeight(event.target.value)}>
               {[...Array(100).keys()].map(num => {
                 return (
                   <option key={`tall-${num + 1}`} value={num + 1}>
@@ -116,21 +108,13 @@ function App() {
           </FormItem>
 
           <FormItem label="Fabric:">
-            <select
-              value={fabric}
-              onChange={event => setFabric(event.target.value)}
-            >
-              <option value={"beeCreative"}>
-                "Bee Creative" by Deb Strain
-              </option>
+            <select value={fabric} onChange={event => setFabric(event.target.value)}>
+              <option value={"beeCreative"}>"Bee Creative" by Deb Strain</option>
             </select>
           </FormItem>
 
           <FormItem label="Geometrical Form used:">
-            <select
-              value={shape}
-              onChange={event => setShape(event.target.value)}
-            >
+            <select value={shape} onChange={event => setShape(event.target.value)}>
               <option value={"Hexagon"}>Hexagon</option>
               <option value={"Square"}>Square</option>
             </select>
@@ -167,7 +151,7 @@ function App() {
           borderTop: "1px solid rgba(0, 0, 0, 0.3)",
           borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
           paddingBottom: "56px",
-          margin: "0 auto"
+          margin: "0 auto",
         }}
       >
         <QuiltSection
@@ -185,7 +169,7 @@ function App() {
       <footer
         css={{
           marginTop: 40,
-          marginBottom: 40
+          marginBottom: 40,
         }}
       >
         <FabricKey counts={counts} hueWidth={hueWidth} fabric={fabric} />
