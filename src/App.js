@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import QuiltSection from "./components/QuiltSection";
 import FabricKey from "./components/FabricKey";
@@ -42,9 +42,11 @@ function App() {
   const [fabric, setFabric] = useState("beeCreative");
   const [shape, setShape] = useState("Hexagon");
 
-  const [imageList, updateImageList] = useState(
-    generateAllImages({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors: [25] })
-  );
+  const [imageList, updateImageList] = useState([]);
+
+  useEffect(() => {
+    updateImageList(generateAllImages({ hueWidth, quiltSectionWidth, quiltSectionHeight, notColors: [25] }));
+  }, [quiltSectionWidth, quiltSectionHeight]);
 
   const [debug, setDebug] = useState(false);
 
@@ -84,7 +86,12 @@ function App() {
 
         <form css={{ minWidth: 500 }}>
           <FormItem label="Generated Width:">
-            <select value={quiltSectionWidth} onChange={event => setQuiltSectionWidth(event.target.value)}>
+            <select
+              value={quiltSectionWidth}
+              onChange={event => {
+                setQuiltSectionWidth(parseInt(event.target.value));
+              }}
+            >
               {[...Array(30).keys()].map(num => {
                 return (
                   <option key={`wide-${num + 1}`} value={num + 1}>
@@ -96,7 +103,12 @@ function App() {
           </FormItem>
 
           <FormItem label="Generated Height:">
-            <select value={quiltSectionHeight} onChange={event => setQuiltSectionHeight(event.target.value)}>
+            <select
+              value={quiltSectionHeight}
+              onChange={event => {
+                setQuiltSectionHeight(parseInt(event.target.value));
+              }}
+            >
               {[...Array(100).keys()].map(num => {
                 return (
                   <option key={`tall-${num + 1}`} value={num + 1}>
