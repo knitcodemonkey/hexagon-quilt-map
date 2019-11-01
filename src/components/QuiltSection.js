@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Hexagons from "./Hexagon";
-import Squares from "./Square";
+import Hexagons from "./shapes/Hexagon";
+import Squares from "./shapes/Square";
 
 const QuiltSection = props => {
   const { shape } = props;

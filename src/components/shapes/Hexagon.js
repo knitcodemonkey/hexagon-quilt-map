@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import theme from "../theme";
+import theme from "../../theme";
 
 const Hexagon = props => {
   const { image, idx, fabric, quiltSectionWidth, changeOneFabric, fabricSelected } = props;
