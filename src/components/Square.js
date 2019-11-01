@@ -8,8 +8,8 @@ const Square = props => {
     <div
       css={{
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        width: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth})`,
-        height: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth})`,
+        width: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} - 1px)`,
+        height: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} - 1px)`,
         backgroundRepeat: "repeat",
         backgroundPosition: "center",
         backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,

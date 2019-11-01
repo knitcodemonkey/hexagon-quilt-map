@@ -16,12 +16,12 @@ const Hexagon = props => {
           overflow: "hidden",
           position: "relative",
           clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-          width: `calc(125vw / ${quiltSectionWidth})`,
-          height: `calc(8 / 9 * (125vw / ${quiltSectionWidth}))`,
-          marginTop: `calc((-8 / 9 * 125vw / ${quiltSectionWidth}) / 2)`,
+          width: `calc(125vw / ${quiltSectionWidth} - 1px)`,
+          height: `calc(8 / 9 * (125vw / ${quiltSectionWidth}) - 1px)`,
           backgroundRepeat: "repeat",
           backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
           backgroundPosition: "center",
+          marginTop: `calc((-8 / 9 * 125vw / ${quiltSectionWidth}) / 2)`,
         },
         isEven
           ? {
