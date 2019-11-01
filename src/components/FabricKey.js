@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import specs from "../utils/specs";
 
-const FabricKey = ({ counts, fabric, selectFabric }) => {
+const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
 
-  const width = hueWidth * 120;
+  const gridTemplateColumns = `repeat(${hueWidth}, calc(94vw / ${hueWidth}))`;
 
   return (
     <aside
       css={{
         margin: "auto",
         padding: "1px 20px 20px 20px",
-        width: width,
+        width: "94vw",
         backgroundColor: "#fff",
         borderRadius: "5px",
         boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
@@ -20,11 +20,12 @@ const FabricKey = ({ counts, fabric, selectFabric }) => {
     >
       <h2>Color Key</h2>
 
+      {/** Hue Headers */}
       <div
         css={{
           display: "grid",
-          gridTemplateColumns: "repeat(5, 120px)",
-          width: width,
+          gridTemplateColumns: gridTemplateColumns,
+          width: "94vw",
           fontWeight: "bold",
           fontSize: 24,
         }}
@@ -39,9 +40,12 @@ const FabricKey = ({ counts, fabric, selectFabric }) => {
         })}
       </div>
 
-      <div css={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
+      {/** Images */}
+      <div css={{ display: "grid", gridTemplateColumns: gridTemplateColumns }}>
         {[...Array(fabricCount).keys()].map(idx => {
           const notImg = notImage.indexOf(idx + 1) !== -1;
+
+          console.log(fabricSelected, idx);
 
           return (
             <div css={{ marginBottom: 6 }} key={`Image-${idx + 1}`}>
@@ -62,9 +66,10 @@ const FabricKey = ({ counts, fabric, selectFabric }) => {
                 key={`orig-image-order-${idx + 1}`}
                 id={`orig-image-order-${idx + 1}`}
                 css={{
-                  width: 120,
+                  width: gridTemplateColumns,
                   height: 60,
-                  backgroundRepeat: "no-repeat",
+                  backgroundRepeat: "repeat",
+                  margin: `0 5px`,
                   backgroundImage: `url(./images/${fabric}/${fabric}${idx + 1}.jpg)`,
                   backgroundPosition: "center",
                   display: "flex",
@@ -76,11 +81,10 @@ const FabricKey = ({ counts, fabric, selectFabric }) => {
                   <button
                     css={{ fontSize: "0.8rem" }}
                     onClick={() => {
-                      console.log(`url(./images/${fabric}/${fabric}${idx + 1}.jpg)`);
-                      selectFabric(idx + 1);
+                      fabricSelected === idx + 1 ? selectFabric("") : selectFabric(idx + 1);
                     }}
                   >
-                    Select me
+                    {fabricSelected === idx + 1 ? "Unselect me" : "Select me"}
                   </button>
                 )}
               </div>
@@ -96,6 +100,8 @@ FabricKey.propTypes = {
   counts: PropTypes.object,
   hueWidth: PropTypes.number,
   fabric: PropTypes.string,
+  fabricSelected: PropTypes.number,
+  selectFabric: PropTypes.func,
 };
 
 export default FabricKey;

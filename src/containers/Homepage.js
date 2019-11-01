@@ -181,7 +181,7 @@ function Homepage() {
           marginBottom: 40,
         }}
       >
-        <FabricKey counts={counts} fabric={fabric} selectFabric={selectFabric} />
+        <FabricKey counts={counts} fabric={fabric} selectFabric={selectFabric} fabricSelected={fabricSelected} />
       </footer>
     </main>
   );
