@@ -52,6 +52,7 @@ function Homepage() {
       <div
         css={{
           boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
+          borderTop: "1px solid rgba(0, 0, 0, 0.3)",
           borderBottom: "1px solid rgba(0, 0, 0, 0.3)",
           width: "100%",
           marginTop: 20,
