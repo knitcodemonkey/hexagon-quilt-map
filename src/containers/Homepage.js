@@ -21,7 +21,7 @@ const Subtitle = ({ title, description }) => (
 function Homepage() {
   // Find out number of instances
   const [counts, setImageCounts] = useState(getImageCounts());
-  const [quiltSectionWidth, setQuiltSectionWidth] = useState(18);
+  const [quiltSectionWidth, setQuiltSectionWidth] = useState(17);
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
   const [shape, setShape] = useState("Hexagon");
@@ -96,7 +96,7 @@ function Homepage() {
               {[...Array(100).keys()].map(num => {
                 return (
                   <option key={`tall-${num + 1}`} value={num + 1}>
-                    {num + 1}
+                    {num}
                   </option>
                 );
               })}

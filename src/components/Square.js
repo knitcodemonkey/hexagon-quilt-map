@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Square = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
+const Square = ({ image, fabric, debug, quiltSectionWidth }) => {
   return (
     <div
       css={[
@@ -53,4 +53,42 @@ Square.propTypes = {
   quiltSectionWidth: PropTypes.number,
 };
 
-export default Square;
+const Squares = ({ quiltSectionHeight, quiltSectionWidth, debug, fabric, imageList }) => {
+  return (
+    <div
+      className="Quilt"
+      css={{
+        overflow: "hidden",
+        width: "94vw",
+        display: "grid",
+        gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(94vw / ${quiltSectionWidth}))`,
+        gridTemplateRows: `repeat(${quiltSectionHeight - 1}, calc(94vw / ${quiltSectionWidth}))`,
+        margin: "40px auto -15px auto",
+        maxHeight: `calc(94vw / ${quiltSectionWidth} * ${quiltSectionHeight - 1})`,
+      }}
+    >
+      {imageList.map((image, idx) => {
+        return (
+          <Square
+            key={`square-key-${image}-${idx}`}
+            quiltSectionWidth={quiltSectionWidth}
+            quiltSectionHeight={quiltSectionHeight}
+            image={image}
+            debug={debug}
+            fabric={fabric}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+Squares.propTypes = {
+  imageList: PropTypes.array,
+  quiltSectionWidth: PropTypes.number,
+  quiltSectionHeight: PropTypes.number,
+  fabric: PropTypes.string,
+  debug: PropTypes.bool,
+};
+
+export default Squares;
