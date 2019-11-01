@@ -64,9 +64,9 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
                 id={`orig-image-order-${idx + 1}`}
                 css={{
                   width: gridTemplateColumns,
-                  height: 60,
+                  height: 100,
                   backgroundRepeat: "repeat",
-                  margin: `0 5px`,
+                  margin: `0 10px`,
                   backgroundImage: `url(./images/${fabric}/${fabric}${idx + 1}.jpg)`,
                   backgroundPosition: "center",
                   display: "flex",
@@ -76,7 +76,7 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
               >
                 {!notImg && (
                   <button
-                    css={{ fontSize: "0.8rem" }}
+                    css={{ width: "100%", margin: 0, padding: 4, fontSize: "0.8rem" }}
                     onClick={() => {
                       fabricSelected === idx + 1 ? selectFabric("") : selectFabric(idx + 1);
                     }}

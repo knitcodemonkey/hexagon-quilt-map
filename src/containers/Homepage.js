@@ -46,104 +46,111 @@ function Homepage() {
 
   return (
     <main className="Homepage">
-      <header
-        css={{
-          margin: "20px auto",
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          width: "94vw",
-          flexWrap: "wrap",
-        }}
-      >
-        <div>
-          <h1 css={{ marginTop: 0 }}>Quilt Fabric Randomizer</h1>
-          <div
-            css={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-            }}
-          >
-            <Subtitle description={<a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">Go to Website</a>} />
-            <Subtitle description={<a href="https://github.com/knitcodemonkey/hexagon-quilt-map">See on Github</a>} />
+      <header>
+        <h1 css={{ margin: 0, paddingTop: 20 }}>Quilt Fabric Randomizer</h1>
+        <Subtitle description="by Jen Luker" />
+
+        <div
+          css={{
+            borderTop: "1px solid rgba(0, 0, 0, 0.3)",
+            width: "94vw",
+            margin: "20px auto 10px auto",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "flex-end",
+            flexWrap: "wrap",
+          }}
+        >
+          <div css={{ minWidth: 360 }}>
+            <div
+              css={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                margin: `0 auto`,
+              }}
+            >
+              <Subtitle description={<a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">Go to Website</a>} />
+              <Subtitle description={<a href="https://github.com/knitcodemonkey/hexagon-quilt-map">See on Github</a>} />
+            </div>
+            <button
+              css={{ margin: `10px auto` }}
+              type="button"
+              onClick={() => {
+                const newImageList = regenerateAllImages({
+                  quiltSectionWidth,
+                  quiltSectionHeight,
+                  fabric,
+                });
+                updateImageList(newImageList);
+
+                setImageCounts(getImageCounts());
+              }}
+            >
+              Randomize Fabric Placement
+            </button>
           </div>
-          <button
-            css={{
-              marginTop: 30,
-            }}
-            type="button"
-            onClick={() => {
-              const newImageList = regenerateAllImages({
-                quiltSectionWidth,
-                quiltSectionHeight,
-                fabric,
-              });
-              updateImageList(newImageList);
 
-              setImageCounts(getImageCounts());
-            }}
-          >
-            Randomize Fabric Placement
-          </button>
-        </div>
+          <form css={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
+            <div>
+              <FormField label="Shape:">
+                <select value={shape} onChange={event => setShape(event.target.value)}>
+                  <option value={"Hexagon"}>Hexagon</option>
+                  <option value={"Square"}>Square</option>
+                </select>
+              </FormField>
 
-        <form css={{ minWidth: 500 }}>
-          <FormField label="Generated Width:">
-            <select
-              value={quiltSectionWidth}
-              onChange={event => {
-                setQuiltSectionWidth(parseInt(event.target.value));
-              }}
-            >
-              {[...Array(30).keys()].map(num => {
-                return (
-                  <option key={`wide-${num + 1}`} value={num + 1}>
-                    {num + 1}
-                  </option>
-                );
-              })}
-            </select>
-          </FormField>
+              <FormField label="Fabric:">
+                <select value={fabric} onChange={event => setFabric(event.target.value)}>
+                  <option value={"beeCreative"}>Bee Creative</option>
+                </select>
+              </FormField>
+            </div>
+            <div>
+              <FormField label="Generated Width:">
+                <select
+                  value={quiltSectionWidth}
+                  onChange={event => {
+                    setQuiltSectionWidth(parseInt(event.target.value));
+                  }}
+                >
+                  {[...Array(30).keys()].map(num => {
+                    return (
+                      <option key={`wide-${num + 1}`} value={num + 1}>
+                        {num + 1}
+                      </option>
+                    );
+                  })}
+                </select>
+              </FormField>
 
-          <FormField label="Generated Height:">
-            <select
-              value={quiltSectionHeight}
-              onChange={event => {
-                setQuiltSectionHeight(parseInt(event.target.value));
-              }}
-            >
-              {[...Array(100).keys()].map(num => {
-                return (
-                  <option key={`tall-${num + 1}`} value={num + 1}>
-                    {num}
-                  </option>
-                );
-              })}
-            </select>
-          </FormField>
+              <FormField label="Generated Height:">
+                <select
+                  value={quiltSectionHeight}
+                  onChange={event => {
+                    setQuiltSectionHeight(parseInt(event.target.value));
+                  }}
+                >
+                  {[...Array(100).keys()].map(num => {
+                    return (
+                      <option key={`tall-${num + 1}`} value={num + 1}>
+                        {num}
+                      </option>
+                    );
+                  })}
+                </select>
+              </FormField>
 
-          <FormField label="Fabric:">
-            <select value={fabric} onChange={event => setFabric(event.target.value)}>
-              <option value={"beeCreative"}>"Bee Creative" by Deb Strain</option>
-            </select>
-          </FormField>
-
-          <FormField label="Geometrical Form used:">
-            <select value={shape} onChange={event => setShape(event.target.value)}>
-              <option value={"Hexagon"}>Hexagon</option>
-              <option value={"Square"}>Square</option>
-            </select>
-          </FormField>
-
-          <FormField label="Show Image Number:">
+              {/* <FormField label="Show Image Number:">
             <select value={debug} onChange={() => setDebug(!debug)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-          </FormField>
-        </form>
+          </FormField> */}
+            </div>
+          </form>
+        </div>
       </header>
 
       <article

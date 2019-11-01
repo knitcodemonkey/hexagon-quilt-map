@@ -7,12 +7,11 @@ const FormField = ({ label, children }) => {
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
-        marginTop: 10,
-        marginBottom: 10,
+        margin: 18,
         fontSize: "1.2rem",
       }}
     >
-      <p css={{ margin: 0, padding: 0, width: 200, textAlign: "right" }}>{label}</p>
+      <p css={{ margin: 0, padding: 0, textAlign: "right" }}>{label}</p>
       {children}
     </label>
   );
