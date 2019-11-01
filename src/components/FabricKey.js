@@ -69,7 +69,7 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-end",
-                  border: "1px solid grey",
+                  border: !notImg && "1px solid grey",
                 }}
               >
                 {!notImg && (
