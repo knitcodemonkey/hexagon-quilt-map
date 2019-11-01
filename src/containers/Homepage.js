@@ -57,25 +57,36 @@ function Homepage() {
         }}
       >
         <div>
-          <h1>Quilt Fabric Randomizer</h1>
-          <div>
-            <Subtitle
-              title="Website:"
-              description={
-                <a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">
-                  https://knitcodemonkey.github.io/hexagon-quilt-map/
-                </a>
-              }
-            />
-            <Subtitle
-              title="Github:"
-              description={
-                <a href="https://github.com/knitcodemonkey/hexagon-quilt-map">
-                  https://github.com/knitcodemonkey/hexagon-quilt-map
-                </a>
-              }
-            />
+          <h1 css={{ marginTop: 0 }}>Quilt Fabric Randomizer</h1>
+          <div
+            css={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+            }}
+          >
+            <Subtitle description={<a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">Go to Website</a>} />
+            <Subtitle description={<a href="https://github.com/knitcodemonkey/hexagon-quilt-map">See on Github</a>} />
           </div>
+          <button
+            css={{
+              marginTop: 30,
+            }}
+            type="button"
+            onClick={() => {
+              const newImageList = regenerateAllImages({
+                quiltSectionWidth,
+                quiltSectionHeight,
+                fabric,
+              });
+              updateImageList(newImageList);
+
+              setImageCounts(getImageCounts());
+            }}
+          >
+            Randomize Fabric Placement
+          </button>
         </div>
 
         <form css={{ minWidth: 500 }}>
@@ -132,22 +143,6 @@ function Homepage() {
               <option value={false}>No</option>
             </select>
           </FormField>
-
-          <button
-            type="button"
-            onClick={() => {
-              const newImageList = regenerateAllImages({
-                quiltSectionWidth,
-                quiltSectionHeight,
-                fabric,
-              });
-              updateImageList(newImageList);
-
-              setImageCounts(getImageCounts());
-            }}
-          >
-            Randomize Fabric Placement
-          </button>
         </form>
       </header>
 
