@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df703185206a35ba7b27f2efacc5d77f",
+    "revision": "852c4953280c1f25b14cb0ae85baa21c",
     "url": "/hexagon-quilt-map/index.html"
   },
   {
