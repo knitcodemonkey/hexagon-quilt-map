@@ -5,7 +5,6 @@ import specs from "../utils/specs";
 const FabricKey = ({ counts, fabric }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
 
-  console.log(specs[fabric]);
   const width = hueWidth * 120;
 
   return (
