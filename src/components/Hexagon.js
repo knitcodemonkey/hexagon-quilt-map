@@ -18,7 +18,7 @@ const Hexagon = props => {
           clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
           width: `calc(125vw / ${quiltSectionWidth})`,
           height: `calc(8 / 9 * (125vw / ${quiltSectionWidth}))`,
-          marginTop: `calc((-16 / 9 * 125vw / ${quiltSectionWidth}))`,
+          marginTop: `calc((-8 / 9 * 125vw / ${quiltSectionWidth}) / 2)`,
           backgroundRepeat: "repeat",
           backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
           backgroundPosition: "center",
