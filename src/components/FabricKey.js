@@ -4,46 +4,46 @@ import specs from "../utils/specs";
 
 const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
-  const gridTemplateColumns = `repeat(${hueWidth}, calc(94vw / ${hueWidth}))`;
+  const gridTemplateColumns = `calc(94vw / ${hueWidth} - 10px)`;
 
   return (
     <aside
       css={{
         margin: 0,
         padding: 20,
-        width: "100%",
+        width: "calc(100% - 40px)",
         backgroundColor: "#fff",
       }}
     >
-      <h2>Color Key</h2>
+      <h2 css={{ margin: 0, marginBottom: 20, padding: 0 }}>Color Key</h2>
 
       {/** Hue Headers */}
       <div
         css={{
-          display: "grid",
-          gridTemplateColumns: gridTemplateColumns,
-          width: "94vw",
+          display: "flex",
+          justifyContent: "space-around",
           fontWeight: "bold",
           fontSize: 24,
+          margin: 0,
         }}
       >
         {[...Array(hueWidth).keys()].map(idx => {
           return (
             <div
               key={`Hue-Header-${(idx + 1) % hueWidth}`}
-              css={{ borderBottom: "1px solid grey", marginBottom: 10, paddingBottom: 10 }}
+              css={{ borderBottom: "1px solid grey", marginBottom: 10, paddingBottom: 10, width: "100%" }}
             >{`Hue: ${(idx + 1) % hueWidth || hueWidth}`}</div>
           );
         })}
       </div>
 
       {/** Images */}
-      <div css={{ display: "grid", gridTemplateColumns: gridTemplateColumns }}>
-        {[...Array(fabricCount).keys()].map(idx => {
-          const notImg = notImage.indexOf(idx + 1) !== -1;
+      <div css={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
+        {[...Array(Math.ceil(fabricCount / hueWidth) * hueWidth).keys()].map(idx => {
+          const notImg = notImage.indexOf(idx + 1) !== -1 || idx + 1 > fabricCount;
 
           return (
-            <div css={{ marginBottom: 6 }} key={`Image-${idx + 1}`}>
+            <div css={{ marginBottom: 10 }} key={`Image-${idx + 1}`}>
               {!notImg && (
                 <div
                   css={{
@@ -64,7 +64,6 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
                   width: gridTemplateColumns,
                   height: 100,
                   backgroundRepeat: "repeat",
-                  margin: `0 10px`,
                   backgroundImage: `url(./images/${fabric}/${fabric}${idx + 1}.jpg)`,
                   backgroundPosition: "center",
                   display: "flex",
