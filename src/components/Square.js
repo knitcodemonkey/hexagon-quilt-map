@@ -8,8 +8,8 @@ const Square = props => {
     <div
       css={{
         clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        width: `calc(94vw / ${quiltSectionWidth})`,
-        height: `calc(94vw / ${quiltSectionWidth})`,
+        width: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth})`,
+        height: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth})`,
         backgroundRepeat: "repeat",
         backgroundPosition: "center",
         backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
@@ -49,12 +49,12 @@ const Squares = props => {
       className="Quilt"
       css={{
         overflow: "hidden",
-        width: "94vw",
+        width: theme.breakpoints[0],
         display: "grid",
-        gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(94vw / ${quiltSectionWidth}))`,
-        gridTemplateRows: `repeat(${quiltSectionHeight - 1}, calc(94vw / ${quiltSectionWidth}))`,
+        gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth}))`,
+        gridTemplateRows: `repeat(${quiltSectionHeight - 1}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth}))`,
         margin: "40px auto -15px auto",
-        maxHeight: `calc(94vw / ${quiltSectionWidth} * ${quiltSectionHeight - 1})`,
+        maxHeight: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} * ${quiltSectionHeight - 1})`,
       }}
     >
       {imageList.map((image, idx) => {

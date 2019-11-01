@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./homepage.css";
+import theme from "../theme";
 
 import QuiltSection from "../components/QuiltSection";
 import FabricKey from "../components/FabricKey";
@@ -51,7 +52,7 @@ function Homepage() {
         <div
           css={{
             borderTop: "1px solid rgba(0, 0, 0, 0.3)",
-            width: "94vw",
+            width: theme.breakpoints[0],
             margin: "20px auto 10px auto",
             display: "flex",
             justifyContent: "space-around",
