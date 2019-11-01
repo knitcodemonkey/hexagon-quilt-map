@@ -9,12 +9,10 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
   return (
     <aside
       css={{
-        margin: "auto",
-        padding: "1px 20px 20px 20px",
-        width: "94vw",
+        margin: 0,
+        padding: 20,
+        width: "100%",
         backgroundColor: "#fff",
-        borderRadius: "5px",
-        boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
       }}
     >
       <h2>Color Key</h2>
