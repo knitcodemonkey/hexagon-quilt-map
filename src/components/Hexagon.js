@@ -5,7 +5,7 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric
   // if even number wide, true.
   // if not even number wide, make even every other row.
   const isEven = quiltSectionWidth % 2 === 0 || Math.floor(idx / quiltSectionWidth) % 2 === 0;
-  console.log(fabricSelected);
+
   return (
     <div
       css={[

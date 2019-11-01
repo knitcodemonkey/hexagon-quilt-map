@@ -4,7 +4,6 @@ import specs from "../utils/specs";
 
 const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
-
   const gridTemplateColumns = `repeat(${hueWidth}, calc(94vw / ${hueWidth}))`;
 
   return (
@@ -45,8 +44,6 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
         {[...Array(fabricCount).keys()].map(idx => {
           const notImg = notImage.indexOf(idx + 1) !== -1;
 
-          console.log(fabricSelected, idx);
-
           return (
             <div css={{ marginBottom: 6 }} key={`Image-${idx + 1}`}>
               {!notImg && (
@@ -84,7 +81,7 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
                       fabricSelected === idx + 1 ? selectFabric("") : selectFabric(idx + 1);
                     }}
                   >
-                    {fabricSelected === idx + 1 ? "Unselect me" : "Select me"}
+                    {fabricSelected === idx + 1 ? "No more!" : "Choose me!"}
                   </button>
                 )}
               </div>

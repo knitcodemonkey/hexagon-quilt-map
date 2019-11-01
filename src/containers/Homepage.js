@@ -30,10 +30,7 @@ function Homepage() {
 
   const changeOneFabric = imageIndex => {
     let newImageList = Object.assign(imageList);
-    console.log(newImageList[imageIndex]);
-
     newImageList[imageIndex] = fabricSelected;
-    console.log(newImageList[imageIndex]);
 
     setImageList(newImageList);
     setImageCounts(getImageCounts());
