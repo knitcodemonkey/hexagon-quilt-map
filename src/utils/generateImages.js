@@ -128,4 +128,4 @@ const getImageCounts = () => {
   return counts;
 };
 
-export { generateRandomImage, generateAllImages, getImageList, regenerateAllImages, getImageCounts };
+export { generateRandomImage, generateAllImages, getImageList, setImageList, regenerateAllImages, getImageCounts };

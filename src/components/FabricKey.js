@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import specs from "../utils/specs";
 
-const FabricKey = ({ counts, fabric }) => {
+const FabricKey = ({ counts, fabric, selectFabric }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
 
   const width = hueWidth * 120;
@@ -34,7 +34,7 @@ const FabricKey = ({ counts, fabric }) => {
             <div
               key={`Hue-Header-${(idx + 1) % hueWidth}`}
               css={{ borderBottom: "1px solid grey", marginBottom: 10, paddingBottom: 10 }}
-            >{`Hue: ${(idx + 1) % hueWidth}`}</div>
+            >{`Hue: ${(idx + 1) % hueWidth || hueWidth}`}</div>
           );
         })}
       </div>
@@ -55,19 +55,35 @@ const FabricKey = ({ counts, fabric }) => {
                 >
                   <span>{`#${idx + 1}: `}</span>
                   <span css={{ color: (counts[idx + 1] < 4 || counts[idx + 1] > 6) && "red" }}>{`${counts[idx + 1] ||
-                    0} Hexis`}</span>
+                    0} uses`}</span>
                 </div>
               )}
               <div
                 key={`orig-image-order-${idx + 1}`}
+                id={`orig-image-order-${idx + 1}`}
                 css={{
                   width: 120,
-                  height: 50,
+                  height: 60,
                   backgroundRepeat: "no-repeat",
                   backgroundImage: `url(./images/${fabric}/${fabric}${idx + 1}.jpg)`,
                   backgroundPosition: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-end",
                 }}
-              />
+              >
+                {!notImg && (
+                  <button
+                    css={{ fontSize: "0.8rem" }}
+                    onClick={() => {
+                      console.log(`url(./images/${fabric}/${fabric}${idx + 1}.jpg)`);
+                      selectFabric(idx + 1);
+                    }}
+                  >
+                    Select me
+                  </button>
+                )}
+              </div>
             </div>
           );
         })}

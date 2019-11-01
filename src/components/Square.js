@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Square = ({ image, fabric, debug, quiltSectionWidth }) => {
+const Square = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric, fabricSelected }) => {
+  console.log(fabricSelected);
   return (
     <div
       css={[
@@ -18,7 +19,7 @@ const Square = ({ image, fabric, debug, quiltSectionWidth }) => {
         },
       ]}
     >
-      {debug === true && (
+      {(debug || fabricSelected) && (
         <div
           css={{
             width: "100%",
@@ -28,17 +29,7 @@ const Square = ({ image, fabric, debug, quiltSectionWidth }) => {
             alignItems: "center",
           }}
         >
-          <div
-            css={{
-              width: "100%",
-              zIndex: 10,
-              color: "blue",
-              fontSize: 24,
-              fontWeight: "bold",
-              textAlign: "center",
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
-            }}
-          >{`${image}`}</div>
+          <button onClick={() => changeOneFabric(idx)}>{image}</button>
         </div>
       )}
     </div>
@@ -51,9 +42,19 @@ Square.propTypes = {
   fabric: PropTypes.string,
   debug: PropTypes.bool,
   quiltSectionWidth: PropTypes.number,
+  changeOneFabric: PropTypes.func,
+  fabricSelected: PropTypes.number,
 };
 
-const Squares = ({ quiltSectionHeight, quiltSectionWidth, debug, fabric, imageList }) => {
+const Squares = ({
+  quiltSectionHeight,
+  quiltSectionWidth,
+  debug,
+  fabric,
+  imageList,
+  changeOneFabric,
+  fabricSelected,
+}) => {
   return (
     <div
       className="Quilt"
@@ -73,9 +74,12 @@ const Squares = ({ quiltSectionHeight, quiltSectionWidth, debug, fabric, imageLi
             key={`square-key-${image}-${idx}`}
             quiltSectionWidth={quiltSectionWidth}
             quiltSectionHeight={quiltSectionHeight}
+            idx={idx}
             image={image}
             debug={debug}
             fabric={fabric}
+            changeOneFabric={changeOneFabric}
+            fabricSelected={fabricSelected}
           />
         );
       })}
@@ -89,6 +93,8 @@ Squares.propTypes = {
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
   debug: PropTypes.bool,
+  changeOneFabric: PropTypes.func,
+  fabricSelected: PropTypes.number,
 };
 
 export default Squares;

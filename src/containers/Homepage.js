@@ -4,7 +4,7 @@ import "./homepage.css";
 import QuiltSection from "../components/QuiltSection";
 import FabricKey from "../components/FabricKey";
 import FormField from "../components/FormField";
-import { regenerateAllImages, generateAllImages, getImageCounts } from "../utils/generateImages";
+import { regenerateAllImages, generateAllImages, getImageCounts, setImageList } from "../utils/generateImages";
 
 const Subtitle = ({ title, description }) => (
   <p
@@ -25,8 +25,21 @@ function Homepage() {
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
   const [fabric, setFabric] = useState("beeCreative");
   const [shape, setShape] = useState("Hexagon");
-
+  const [fabricSelected, selectFabric] = useState();
   const [imageList, updateImageList] = useState([]);
+
+  const changeOneFabric = imageIndex => {
+    let newImageList = Object.assign(imageList);
+    console.log(newImageList[imageIndex]);
+
+    newImageList[imageIndex] = fabricSelected;
+    console.log(newImageList[imageIndex]);
+
+    setImageList(newImageList);
+    setImageCounts(getImageCounts());
+
+    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
+  };
 
   useEffect(() => {
     updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
@@ -150,13 +163,15 @@ function Homepage() {
         }}
       >
         <QuiltSection
-          key={`QuiltSection-${imageList.length}`}
+          key={`QuiltSection-${imageList.length}-${fabricSelected}`}
           quiltSectionWidth={quiltSectionWidth}
           quiltSectionHeight={quiltSectionHeight}
           debug={debug}
           fabric={fabric}
           shape={shape}
           imageList={imageList}
+          changeOneFabric={changeOneFabric}
+          fabricSelected={fabricSelected}
         />
       </article>
 
@@ -166,7 +181,7 @@ function Homepage() {
           marginBottom: 40,
         }}
       >
-        <FabricKey counts={counts} fabric={fabric} />
+        <FabricKey counts={counts} fabric={fabric} selectFabric={selectFabric} />
       </footer>
     </main>
   );

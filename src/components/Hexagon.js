@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
+const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric, fabricSelected }) => {
   // if even number wide, true.
   // if not even number wide, make even every other row.
   const isEven = quiltSectionWidth % 2 === 0 || Math.floor(idx / quiltSectionWidth) % 2 === 0;
+  console.log(fabricSelected);
   return (
     <div
       css={[
@@ -32,7 +33,7 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
             },
       ]}
     >
-      {debug === true && (
+      {(debug || fabricSelected) && (
         <div
           css={{
             width: "100%",
@@ -42,17 +43,7 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth }) => {
             alignItems: "center",
           }}
         >
-          <div
-            css={{
-              width: "100%",
-              zIndex: 10,
-              color: "blue",
-              fontSize: 24,
-              fontWeight: "bold",
-              textAlign: "center",
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
-            }}
-          >{`${image}`}</div>
+          <button onClick={() => changeOneFabric(idx)}>{image}</button>
         </div>
       )}
     </div>
@@ -65,9 +56,19 @@ Hexagon.propTypes = {
   fabric: PropTypes.string,
   debug: PropTypes.bool,
   quiltSectionWidth: PropTypes.number,
+  changeOneFabric: PropTypes.func,
+  fabricSelected: PropTypes.number,
 };
 
-const Hexagons = ({ quiltSectionHeight, quiltSectionWidth, debug, fabric, imageList }) => {
+const Hexagons = ({
+  quiltSectionHeight,
+  quiltSectionWidth,
+  debug,
+  fabric,
+  imageList,
+  changeOneFabric,
+  fabricSelected,
+}) => {
   let heightMeasurement = `8 / 9 * (125vw / ${quiltSectionWidth})`;
 
   return (
@@ -94,6 +95,8 @@ const Hexagons = ({ quiltSectionHeight, quiltSectionWidth, debug, fabric, imageL
             image={image}
             debug={debug}
             fabric={fabric}
+            changeOneFabric={changeOneFabric}
+            fabricSelected={fabricSelected}
           />
         );
       })}
@@ -107,6 +110,8 @@ Hexagons.propTypes = {
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
   debug: PropTypes.bool,
+  changeOneFabric: PropTypes.func,
+  fabricSelected: PropTypes.number,
 };
 
 export default Hexagons;
