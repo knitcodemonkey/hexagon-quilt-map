@@ -42,8 +42,6 @@ function Homepage() {
     updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
   }, [quiltSectionWidth, quiltSectionHeight, fabric]);
 
-  const [debug, setDebug] = useState(false);
-
   return (
     <main className="Homepage">
       <header>
@@ -141,13 +139,6 @@ function Homepage() {
                   })}
                 </select>
               </FormField>
-
-              {/* <FormField label="Show Image Number:">
-            <select value={debug} onChange={() => setDebug(!debug)}>
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </select>
-          </FormField> */}
             </div>
           </form>
         </div>
@@ -165,7 +156,6 @@ function Homepage() {
           key={`QuiltSection-${imageList.length}-${fabricSelected}`}
           quiltSectionWidth={quiltSectionWidth}
           quiltSectionHeight={quiltSectionHeight}
-          debug={debug}
           fabric={fabric}
           shape={shape}
           imageList={imageList}

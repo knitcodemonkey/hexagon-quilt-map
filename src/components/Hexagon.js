@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric, fabricSelected }) => {
+const Hexagon = props => {
+  const { image, idx, fabric, quiltSectionWidth, changeOneFabric, fabricSelected } = props;
+
   // if even number wide, true.
   // if not even number wide, make even every other row.
   const isEven = quiltSectionWidth % 2 === 0 || Math.floor(idx / quiltSectionWidth) % 2 === 0;
@@ -33,7 +35,7 @@ const Hexagon = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric
             },
       ]}
     >
-      {(debug || fabricSelected) && (
+      {fabricSelected && (
         <div
           css={{
             width: "100%",
@@ -54,21 +56,14 @@ Hexagon.propTypes = {
   image: PropTypes.number,
   idx: PropTypes.number,
   fabric: PropTypes.string,
-  debug: PropTypes.bool,
   quiltSectionWidth: PropTypes.number,
+  quiltSectionHeight: PropTypes.number,
   changeOneFabric: PropTypes.func,
   fabricSelected: PropTypes.number,
 };
 
-const Hexagons = ({
-  quiltSectionHeight,
-  quiltSectionWidth,
-  debug,
-  fabric,
-  imageList,
-  changeOneFabric,
-  fabricSelected,
-}) => {
+const Hexagons = props => {
+  const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
   let heightMeasurement = `8 / 9 * (125vw / ${quiltSectionWidth})`;
 
   return (
@@ -86,19 +81,7 @@ const Hexagons = ({
       }}
     >
       {imageList.map((image, idx) => {
-        return (
-          <Hexagon
-            key={`hexi-key-${image}-${idx}`}
-            quiltSectionWidth={quiltSectionWidth}
-            quiltSectionHeight={quiltSectionHeight}
-            idx={idx}
-            image={image}
-            debug={debug}
-            fabric={fabric}
-            changeOneFabric={changeOneFabric}
-            fabricSelected={fabricSelected}
-          />
-        );
+        return <Hexagon key={`hexi-key-${image}-${idx}`} idx={idx} image={image} {...props} />;
       })}
     </div>
   );
@@ -109,7 +92,6 @@ Hexagons.propTypes = {
   quiltSectionWidth: PropTypes.number,
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
-  debug: PropTypes.bool,
   changeOneFabric: PropTypes.func,
   fabricSelected: PropTypes.number,
 };

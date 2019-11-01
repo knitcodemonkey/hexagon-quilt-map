@@ -1,25 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import theme from "../theme";
 
-const Square = ({ image, idx, fabric, debug, quiltSectionWidth, changeOneFabric, fabricSelected }) => {
-  console.log(fabricSelected);
+const Square = props => {
+  const { image, idx, fabric, quiltSectionWidth, changeOneFabric, fabricSelected } = props;
   return (
     <div
-      css={[
-        {
-          overflow: "hidden",
-          position: "relative",
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          width: `calc(94vw / ${quiltSectionWidth})`,
-          height: `calc(94vw / ${quiltSectionWidth})`,
-          margin: 0,
-          backgroundRepeat: "repeat",
-          backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
-          backgroundPosition: "center",
-        },
-      ]}
+      css={{
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        width: `calc(94vw / ${quiltSectionWidth})`,
+        height: `calc(94vw / ${quiltSectionWidth})`,
+        backgroundRepeat: "repeat",
+        backgroundPosition: "center",
+        backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
+      }}
     >
-      {(debug || fabricSelected) && (
+      {fabricSelected && (
         <div
           css={{
             width: "100%",
@@ -40,21 +36,14 @@ Square.propTypes = {
   image: PropTypes.number,
   idx: PropTypes.number,
   fabric: PropTypes.string,
-  debug: PropTypes.bool,
   quiltSectionWidth: PropTypes.number,
+  quiltSectionHeight: PropTypes.number,
   changeOneFabric: PropTypes.func,
   fabricSelected: PropTypes.number,
 };
 
-const Squares = ({
-  quiltSectionHeight,
-  quiltSectionWidth,
-  debug,
-  fabric,
-  imageList,
-  changeOneFabric,
-  fabricSelected,
-}) => {
+const Squares = props => {
+  const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
   return (
     <div
       className="Quilt"
@@ -69,19 +58,7 @@ const Squares = ({
       }}
     >
       {imageList.map((image, idx) => {
-        return (
-          <Square
-            key={`square-key-${image}-${idx}`}
-            quiltSectionWidth={quiltSectionWidth}
-            quiltSectionHeight={quiltSectionHeight}
-            idx={idx}
-            image={image}
-            debug={debug}
-            fabric={fabric}
-            changeOneFabric={changeOneFabric}
-            fabricSelected={fabricSelected}
-          />
-        );
+        return <Square key={`square-key-${image}-${idx}`} idx={idx} image={image} {...props} />;
       })}
     </div>
   );
@@ -92,7 +69,6 @@ Squares.propTypes = {
   quiltSectionWidth: PropTypes.number,
   quiltSectionHeight: PropTypes.number,
   fabric: PropTypes.string,
-  debug: PropTypes.bool,
   changeOneFabric: PropTypes.func,
   fabricSelected: PropTypes.number,
 };

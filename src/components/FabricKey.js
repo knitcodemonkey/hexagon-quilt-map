@@ -76,7 +76,7 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
               >
                 {!notImg && (
                   <button
-                    css={{ width: "100%", margin: 0, padding: 4, fontSize: "0.8rem" }}
+                    css={{ width: "100%", margin: 0, padding: 5, fontSize: "0.9rem" }}
                     onClick={() => {
                       fabricSelected === idx + 1 ? selectFabric("") : selectFabric(idx + 1);
                     }}
