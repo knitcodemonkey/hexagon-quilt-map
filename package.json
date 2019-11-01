@@ -1,7 +1,7 @@
 {
   "name": "hexagon-quilt",
   "homepage": "https://knitcodemonkey.github.io/hexagon-quilt-map/",
-  "version": "1.1.1",
+  "version": "v1.1.2",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.22",
