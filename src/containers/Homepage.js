@@ -19,16 +19,20 @@ const Subtitle = ({ title, description }) => (
 );
 
 function Homepage() {
-  const initialWidth = localStorage.getItem("quiltSectionWidth") ? localStorage.getItem("quiltSectionWidth") : 17;
-  const initialHeight = localStorage.getItem("quiltSectionHeight") ? localStorage.getItem("quiltSectionHeight") : 7;
-  const initialFabric = localStorage.getItem("fabric") ? localStorage.getItem("fabric") : "beeCreative";
-  const initialShape = localStorage.getItem("shape") ? localStorage.getItem("shape") : "Hexagon";
+  const lStorage = {...localStorage};
+  const initialValues = {
+      width : lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
+      height : lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
+      fabric : lStorage.fabric ? lStorage.fabric : "beeCreative",
+      shape : lStorage.shape ? lStorage.shape : "Hexagon"
+  };
+
     // Find out number of instancesl
   const [counts, setImageCounts] = useState(getImageCounts());
-  const [quiltSectionWidth, setQuiltSectionWidth] = useState(initialWidth);
-  const [quiltSectionHeight, setQuiltSectionHeight] = useState(initialHeight);
-  const [fabric, setFabric] = useState(initialFabric);
-  const [shape, setShape] = useState(initialShape);
+  const [quiltSectionWidth, setQuiltSectionWidth] = useState(initialValues.width);
+  const [quiltSectionHeight, setQuiltSectionHeight] = useState(initialValues.height);
+  const [fabric, setFabric] = useState(initialValues.fabric);
+  const [shape, setShape] = useState(initialValues.shape);
   const [fabricSelected, selectFabric] = useState();
   const [imageList, updateImageList] = useState([]);
 
@@ -126,7 +130,7 @@ function Homepage() {
                 value={quiltSectionWidth}
                 onChange={event => {
                   setQuiltSectionWidth(parseInt(event.target.value));
-                    localStorage.setItem("quiltSectionWidth",event.target.value);
+                  localStorage.setItem("quiltSectionWidth",event.target.value);
                 }}
               >
                 {[...Array(30).keys()].map(num => {
@@ -144,7 +148,7 @@ function Homepage() {
                 value={quiltSectionHeight}
                 onChange={event => {
                   setQuiltSectionHeight(parseInt(event.target.value));
-                    localStorage.setItem("quiltSectionHeight",event.target.value);
+                  localStorage.setItem("quiltSectionHeight",event.target.value);
                 }}
               >
                 {[...Array(100).keys()].map(num => {
