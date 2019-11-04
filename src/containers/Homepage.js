@@ -19,12 +19,20 @@ const Subtitle = ({ title, description }) => (
 );
 
 function Homepage() {
-  // Find out number of instances
+  const lStorage = {...localStorage};
+  const initialValues = {
+      width : lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
+      height : lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
+      fabric : lStorage.fabric ? lStorage.fabric : "beeCreative",
+      shape : lStorage.shape ? lStorage.shape : "Hexagon"
+  };
+
+    // Find out number of instancesl
   const [counts, setImageCounts] = useState(getImageCounts());
-  const [quiltSectionWidth, setQuiltSectionWidth] = useState(17);
-  const [quiltSectionHeight, setQuiltSectionHeight] = useState(7);
-  const [fabric, setFabric] = useState("beeCreative");
-  const [shape, setShape] = useState("Hexagon");
+  const [quiltSectionWidth, setQuiltSectionWidth] = useState(initialValues.width);
+  const [quiltSectionHeight, setQuiltSectionHeight] = useState(initialValues.height);
+  const [fabric, setFabric] = useState(initialValues.fabric);
+  const [shape, setShape] = useState(initialValues.shape);
   const [fabricSelected, selectFabric] = useState();
   const [imageList, updateImageList] = useState([]);
 
@@ -98,14 +106,20 @@ function Homepage() {
         <form css={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
           <div>
             <FormField label="Shape:">
-              <select value={shape} onChange={event => setShape(event.target.value)}>
+              <select value={shape} onChange={event => {
+                  setShape(event.target.value);
+                  localStorage.setItem("shape",event.target.value);
+              }}>
                 <option value={"Hexagon"}>Hexagon</option>
                 <option value={"Square"}>Square</option>
               </select>
             </FormField>
 
             <FormField label="Fabric:">
-              <select value={fabric} onChange={event => setFabric(event.target.value)}>
+              <select value={fabric} onChange={event => {
+                  setFabric(event.target.value);
+                  localStorage.setItem("fabric",event.target.value);
+              }}>
                 <option value={"beeCreative"}>Bee Creative</option>
               </select>
             </FormField>
@@ -116,6 +130,7 @@ function Homepage() {
                 value={quiltSectionWidth}
                 onChange={event => {
                   setQuiltSectionWidth(parseInt(event.target.value));
+                  localStorage.setItem("quiltSectionWidth",event.target.value);
                 }}
               >
                 {[...Array(30).keys()].map(num => {
@@ -133,6 +148,7 @@ function Homepage() {
                 value={quiltSectionHeight}
                 onChange={event => {
                   setQuiltSectionHeight(parseInt(event.target.value));
+                  localStorage.setItem("quiltSectionHeight",event.target.value);
                 }}
               >
                 {[...Array(100).keys()].map(num => {
