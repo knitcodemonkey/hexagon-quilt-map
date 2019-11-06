@@ -116,6 +116,8 @@ function Homepage() {
               >
                 <option value={"Hexagon"}>Hexagon</option>
                 <option value={"Square"}>Square</option>
+                <option value={"IsoscelesTriangle"}>Isosceles Triangle</option>
+                <option value={"RightTriangle"}>Right Triangle</option>
               </select>
             </FormField>
 
@@ -143,13 +145,13 @@ function Homepage() {
                 value={quiltSectionWidth}
                 onChange={event => {
                   setQuiltSectionWidth(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionWidth", event.target.value);
+                  localStorage.setItem("quiltSectionWidth", parseInt(event.target.value));
                 }}
               >
                 {[...Array(30).keys()].map(num => {
                   return (
                     <option key={`wide-${num + 1}`} value={num + 1}>
-                      {num + 1}
+                      {num}
                     </option>
                   );
                 })}
@@ -161,7 +163,7 @@ function Homepage() {
                 value={quiltSectionHeight}
                 onChange={event => {
                   setQuiltSectionHeight(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionHeight", event.target.value);
+                  localStorage.setItem("quiltSectionHeight", parseInt(event.target.value));
                 }}
               >
                 {[...Array(100).keys()].map(num => {
