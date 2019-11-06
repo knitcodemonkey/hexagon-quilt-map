@@ -12,6 +12,7 @@ const Square = props => {
         height: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} - 1px)`,
         backgroundRepeat: "repeat",
         backgroundPosition: "center",
+        backgroundSize: "cover",
         backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
       }}
     >

@@ -5,6 +5,7 @@ import QuiltSection from "../components/QuiltSection";
 import FabricKey from "../components/FabricKey";
 import FormField from "../components/FormField";
 import { regenerateAllImages, generateAllImages, getImageCounts, setImageList } from "../utils/generateImages";
+import specs from "../utils/specs";
 
 const Subtitle = ({ title, description }) => (
   <p
@@ -19,15 +20,15 @@ const Subtitle = ({ title, description }) => (
 );
 
 function Homepage() {
-  const lStorage = {...localStorage};
+  const lStorage = { ...localStorage };
   const initialValues = {
-      width : lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
-      height : lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
-      fabric : lStorage.fabric ? lStorage.fabric : "beeCreative",
-      shape : lStorage.shape ? lStorage.shape : "Hexagon"
+    width: lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
+    height: lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
+    fabric: lStorage.fabric ? lStorage.fabric : "beeCreative",
+    shape: lStorage.shape ? lStorage.shape : "Hexagon",
   };
 
-    // Find out number of instancesl
+  // Find out number of instancesl
   const [counts, setImageCounts] = useState(getImageCounts());
   const [quiltSectionWidth, setQuiltSectionWidth] = useState(initialValues.width);
   const [quiltSectionHeight, setQuiltSectionHeight] = useState(initialValues.height);
@@ -106,21 +107,33 @@ function Homepage() {
         <form css={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
           <div>
             <FormField label="Shape:">
-              <select value={shape} onChange={event => {
+              <select
+                value={shape}
+                onChange={event => {
                   setShape(event.target.value);
-                  localStorage.setItem("shape",event.target.value);
-              }}>
+                  localStorage.setItem("shape", event.target.value);
+                }}
+              >
                 <option value={"Hexagon"}>Hexagon</option>
                 <option value={"Square"}>Square</option>
               </select>
             </FormField>
 
             <FormField label="Fabric:">
-              <select value={fabric} onChange={event => {
+              <select
+                value={fabric}
+                onChange={event => {
                   setFabric(event.target.value);
-                  localStorage.setItem("fabric",event.target.value);
-              }}>
-                <option value={"beeCreative"}>Bee Creative</option>
+                  localStorage.setItem("fabric", event.target.value);
+                }}
+              >
+                {Object.keys(specs).map(key => {
+                  return (
+                    <option key={key} value={key}>
+                      {specs[key].name}
+                    </option>
+                  );
+                })}
               </select>
             </FormField>
           </div>
@@ -130,7 +143,7 @@ function Homepage() {
                 value={quiltSectionWidth}
                 onChange={event => {
                   setQuiltSectionWidth(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionWidth",event.target.value);
+                  localStorage.setItem("quiltSectionWidth", event.target.value);
                 }}
               >
                 {[...Array(30).keys()].map(num => {
@@ -148,7 +161,7 @@ function Homepage() {
                 value={quiltSectionHeight}
                 onChange={event => {
                   setQuiltSectionHeight(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionHeight",event.target.value);
+                  localStorage.setItem("quiltSectionHeight", event.target.value);
                 }}
               >
                 {[...Array(100).keys()].map(num => {

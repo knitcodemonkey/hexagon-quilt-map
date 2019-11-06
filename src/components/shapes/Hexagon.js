@@ -21,6 +21,7 @@ const Hexagon = props => {
           backgroundRepeat: "repeat",
           backgroundImage: `url(./images/${fabric}/${fabric}${image}.jpg)`,
           backgroundPosition: "center",
+          backgroundSize: "cover",
           marginTop: `calc((-8 / 9 * 125vw / ${quiltSectionWidth}) / 2)`,
         },
         isEven
