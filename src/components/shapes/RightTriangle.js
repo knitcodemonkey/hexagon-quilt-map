@@ -17,7 +17,6 @@ const Hexagon = props => {
       css={[
         {
           overflow: "hidden",
-          position: "relative",
           clipPath: "polygon(0% 0%, 100% 0%, 0% 100% )",
           width: `calc(94vw / ${quiltSectionWidth} - 1px)`,
           height: `calc((94vw / ${quiltSectionWidth}))`,
@@ -93,7 +92,8 @@ Hexagon.propTypes = {
 
 const Hexagons = props => {
   const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
-  let heightMeasurement = `(94vw / ${quiltSectionWidth})`;
+  const heightMeasurement = `(94vw / ${quiltSectionWidth})`;
+  const rows = quiltSectionHeight - 1 + ((quiltSectionHeight - 1) % 2);
 
   return (
     <div
@@ -105,8 +105,7 @@ const Hexagons = props => {
         gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth}))`,
         gridTemplateRows: `repeat(${quiltSectionHeight - 1}, 0fr)`,
         margin: "40px auto -16px auto",
-        paddingRight: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} / 3)`,
-        maxHeight: `calc(${quiltSectionHeight - 1} * ${heightMeasurement} )`,
+        maxHeight: `calc(${rows / 2} * ${heightMeasurement})})`,
       }}
     >
       {imageList.map((image, idx) => {
