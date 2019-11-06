@@ -43,6 +43,8 @@ const generateRandomImage = ({ idx, rowWidth, fabric }) => {
     // set params for easier "while" use
     sameAsLastRow = touchingSpaces.indexOf(randImgNum) > -1;
     sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1;
+
+    console.log(notImage, randImgNum);
   } while (notImage.indexOf(randImgNum) > -1 || sameAsLastRow || sameAsLastRowHue);
   return randImgNum;
 };

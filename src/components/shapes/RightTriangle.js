@@ -8,9 +8,12 @@ const Hexagon = props => {
   // if even number wide, true.
   // if not even number wide, make even every other row.
   const isFirst = Math.floor(idx / quiltSectionWidth) % 4 === 0;
-  const isSecond = Math.floor(idx / quiltSectionWidth) % 4 === 1;
   const isThird = Math.floor(idx / quiltSectionWidth) % 4 === 2;
-  const isFourth = Math.floor(idx / quiltSectionWidth) % 4 === 3;
+
+  const isOddSecond = Math.floor(idx / quiltSectionWidth) % 4 === 1 && (quiltSectionWidth - 1) % 2 === 1;
+  const isOddFourth = Math.floor(idx / quiltSectionWidth) % 4 === 3 && (quiltSectionWidth - 1) % 2 === 1;
+  const isEvenSecond = Math.floor(idx / quiltSectionWidth) % 4 === 1 && (quiltSectionWidth - 1) % 2 === 0;
+  const isEvenFourth = Math.floor(idx / quiltSectionWidth) % 4 === 3 && (quiltSectionWidth - 1) % 2 === 0;
 
   return (
     <div
@@ -33,16 +36,7 @@ const Hexagon = props => {
             transform: "rotate(90deg)",
           },
         },
-        isSecond && {
-          "&:nth-of-type(odd)": {
-            transform: "rotate(180deg)",
-            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
-          },
-          "&:nth-of-type(even)": {
-            transform: "rotate(270deg)",
-            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
-          },
-        },
+
         isThird && {
           "&:nth-of-type(even)": {
             transform: "rotate(180deg)",
@@ -51,12 +45,44 @@ const Hexagon = props => {
             transform: "rotate(270deg)",
           },
         },
-        isFourth && {
+
+        isOddSecond && {
+          "&:nth-of-type(odd)": {
+            transform: "rotate(180deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+          "&:nth-of-type(even)": {
+            transform: "rotate(270deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+        },
+        isOddFourth && {
           "&:nth-of-type(even)": {
             transform: "rotate(0deg)",
             marginTop: `calc(-94vw / ${quiltSectionWidth})`,
           },
           "&:nth-of-type(odd)": {
+            transform: "rotate(90deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+        },
+
+        isEvenSecond && {
+          "&:nth-of-type(even)": {
+            transform: "rotate(180deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+          "&:nth-of-type(odd)": {
+            transform: "rotate(270deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+        },
+        isEvenFourth && {
+          "&:nth-of-type(odd)": {
+            transform: "rotate(0deg)",
+            marginTop: `calc(-94vw / ${quiltSectionWidth})`,
+          },
+          "&:nth-of-type(even)": {
             transform: "rotate(90deg)",
             marginTop: `calc(-94vw / ${quiltSectionWidth})`,
           },
@@ -93,7 +119,7 @@ Hexagon.propTypes = {
 const Hexagons = props => {
   const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
   const heightMeasurement = `(94vw / ${quiltSectionWidth})`;
-  const rows = quiltSectionHeight - 1 + ((quiltSectionHeight - 1) % 2);
+  const rows = quiltSectionHeight + (quiltSectionHeight % 2);
 
   return (
     <div
@@ -103,9 +129,9 @@ const Hexagons = props => {
         width: theme.breakpoints[0],
         display: "grid",
         gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth}))`,
-        gridTemplateRows: `repeat(${quiltSectionHeight - 1}, 0fr)`,
+        gridTemplateRows: `repeat(${quiltSectionHeight}, 0fr)`,
         margin: "40px auto -16px auto",
-        maxHeight: `calc(${rows / 2} * ${heightMeasurement})})`,
+        maxHeight: `calc(${rows} * ${heightMeasurement} / 2)`,
       }}
     >
       {imageList.map((image, idx) => {
