@@ -80,6 +80,7 @@ const Hexagons = props => {
         margin: "40px auto -16px auto",
         paddingRight: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} / 3)`,
         maxHeight: `calc(${heightMeasurement} * ${quiltSectionHeight - 1})`,
+        boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
       }}
     >
       {imageList.map((image, idx) => {

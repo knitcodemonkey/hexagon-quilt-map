@@ -119,7 +119,7 @@ Hexagon.propTypes = {
 const Hexagons = props => {
   const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
   const heightMeasurement = `(94vw / ${quiltSectionWidth})`;
-  const rows = quiltSectionHeight + (quiltSectionHeight % 2);
+  const rows = quiltSectionHeight;
 
   return (
     <div
@@ -132,6 +132,7 @@ const Hexagons = props => {
         gridTemplateRows: `repeat(${quiltSectionHeight}, 0fr)`,
         margin: "40px auto -16px auto",
         maxHeight: `calc(${rows} * ${heightMeasurement} / 2)`,
+        boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
       }}
     >
       {imageList.map((image, idx) => {

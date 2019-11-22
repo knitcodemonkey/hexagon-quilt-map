@@ -44,12 +44,12 @@ function Homepage() {
     setImageList(newImageList);
     setImageCounts(getImageCounts());
 
-    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
+    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric, shape }));
   };
 
   useEffect(() => {
-    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric }));
-  }, [quiltSectionWidth, quiltSectionHeight, fabric]);
+    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric, shape }));
+  }, [quiltSectionWidth, quiltSectionHeight, fabric, shape]);
 
   return (
     <main className="Homepage">
@@ -181,8 +181,11 @@ function Homepage() {
 
       <article
         css={{
-          paddingBottom: "56px",
+          paddingTop: 1,
+          paddingBottom: 56,
           margin: "0 auto",
+          backgroundImage: `url(./wood.jpg)`,
+          backgroundOpacity: 0.5,
         }}
       >
         <QuiltSection

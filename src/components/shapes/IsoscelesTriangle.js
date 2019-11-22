@@ -83,6 +83,7 @@ const IsoscelesTriangles = props => {
         gridTemplateRows: `repeat(${quiltSectionHeight}, calc(${heightMeasurement}))`,
         margin: `40px auto -16px auto`,
         maxHeight: `calc(${heightMeasurement} - 1})`,
+        boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
       }}
     >
       {imageList.map((image, idx) => {

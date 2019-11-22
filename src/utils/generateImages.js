@@ -11,18 +11,28 @@ import specs from "./specs";
  *
  * @returns {int}
  */
-const generateRandomImage = ({ idx, rowWidth, fabric }) => {
+const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
   const { hueWidth, notImage, fabricCount } = specs[fabric];
   let imageList = getImageList();
 
   // get 3 hexis touching top of current hexi
-  const touchingSpaces = [
-    imageList[idx - rowWidth - 1],
-    imageList[idx - rowWidth],
-    imageList[idx - rowWidth + 1],
-    imageList[idx - 1],
-    imageList[idx - 2],
-  ];
+  let touchingSpaces = [imageList[idx - 1], imageList[idx - 2]];
+
+  if (shape && shape.indexOf("Triangle") > -1) {
+    touchingSpaces = [
+      ...touchingSpaces,
+      imageList[idx - rowWidth * 2 - 1],
+      imageList[idx - rowWidth * 2],
+      imageList[idx - rowWidth * 2 + 1],
+    ];
+  } else {
+    touchingSpaces = [
+      ...touchingSpaces,
+      imageList[idx - rowWidth - 1],
+      imageList[idx - rowWidth],
+      imageList[idx - rowWidth + 1],
+    ];
+  }
 
   // Assuming 5 hues (the minimum allowed), making sure that all 5 previous spaces
   // aren't the same as the current one is impossible and results in an unending loop
@@ -59,7 +69,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric }) => {
  *
  * @returns {array}
  */
-const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight }) => {
+const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
   const imageList = getImageList();
   const newImageList = [];
 
@@ -119,6 +129,7 @@ const removeImageList = () => {
 /**
  * @returns {object} object of counts for key
  */
+
 const getImageCounts = () => {
   const imageList = getImageList();
   let counts = {};

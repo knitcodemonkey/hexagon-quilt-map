@@ -56,6 +56,7 @@ const Squares = props => {
         gridTemplateRows: `repeat(${quiltSectionHeight - 1}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth}))`,
         margin: "40px auto -15px auto",
         maxHeight: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} * ${quiltSectionHeight - 1})`,
+        boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
       }}
     >
       {imageList.map((image, idx) => {
