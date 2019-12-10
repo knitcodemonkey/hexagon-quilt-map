@@ -23,14 +23,14 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
       ...touchingSpaces,
       imageList[idx - rowWidth * 2 - 1],
       imageList[idx - rowWidth * 2],
-      imageList[idx - rowWidth * 2 + 1],
+      imageList[idx - rowWidth * 2 + 1]
     ];
   } else {
     touchingSpaces = [
       ...touchingSpaces,
       imageList[idx - rowWidth - 1],
       imageList[idx - rowWidth],
-      imageList[idx - rowWidth + 1],
+      imageList[idx - rowWidth + 1]
     ];
   }
 
@@ -55,7 +55,11 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
     sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1;
 
     console.log(notImage, randImgNum);
-  } while (notImage.indexOf(randImgNum) > -1 || sameAsLastRow || sameAsLastRowHue);
+  } while (
+    notImage.indexOf(randImgNum) > -1 ||
+    sameAsLastRow ||
+    sameAsLastRowHue
+  );
   return randImgNum;
 };
 
@@ -69,11 +73,20 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
  *
  * @returns {array}
  */
-const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
+const generateAllImages = ({
+  fabric,
+  quiltSectionWidth,
+  quiltSectionHeight,
+  shape
+}) => {
   const imageList = getImageList();
   const newImageList = [];
+  const height =
+    shape === "RightTriangle"
+      ? (quiltSectionHeight - 1) * 2
+      : quiltSectionHeight;
 
-  [...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach(idx => {
+  [...Array(quiltSectionWidth * height).keys()].forEach(idx => {
     const data = { idx, rowWidth: quiltSectionWidth, fabric };
     const image = imageList[idx] || generateRandomImage(data);
     newImageList.push(image);
@@ -141,4 +154,11 @@ const getImageCounts = () => {
   return counts;
 };
 
-export { generateRandomImage, generateAllImages, getImageList, setImageList, regenerateAllImages, getImageCounts };
+export {
+  generateRandomImage,
+  generateAllImages,
+  getImageList,
+  setImageList,
+  regenerateAllImages,
+  getImageCounts
+};
