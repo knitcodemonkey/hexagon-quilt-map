@@ -135,7 +135,6 @@ const RightTriangles = props => {
   const { quiltSectionHeight, quiltSectionWidth, imageList } = props;
   const heightMeasurement = `(94vw / ${quiltSectionWidth})`;
   const rows = quiltSectionHeight * 2;
-  //- 1 * (quiltSectionHeight % 2)
   return (
     <div
       className="Quilt"
