@@ -4,7 +4,13 @@ import "./homepage.css";
 import QuiltSection from "../components/QuiltSection";
 import FabricKey from "../components/FabricKey";
 import FormField from "../components/FormField";
-import { regenerateAllImages, generateAllImages, getImageCounts, setImageList } from "../utils/generateImages";
+import {
+  regenerateAllImages,
+  generateAllImages,
+  generateWithoutChanged,
+  getImageCounts,
+  setImageList
+} from "../utils/generateImages";
 import specs from "../utils/specs";
 
 const Subtitle = ({ title, description }) => (
@@ -12,7 +18,7 @@ const Subtitle = ({ title, description }) => (
     css={{
       margin: 10,
       padding: 0,
-      fontSize: "1.2rem",
+      fontSize: "1.2rem"
     }}
   >
     <span css={{ fontWeight: "bold" }}>{title}</span> {description}
@@ -25,30 +31,80 @@ function Homepage() {
     width: lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
     height: lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
     fabric: lStorage.fabric ? lStorage.fabric : "beeCreative",
-    shape: lStorage.shape ? lStorage.shape : "Hexagon",
+    shape: lStorage.shape ? lStorage.shape : "Hexagon"
   };
 
   // Find out number of instancesl
   const [counts, setImageCounts] = useState(getImageCounts());
-  const [quiltSectionWidth, setQuiltSectionWidth] = useState(initialValues.width);
-  const [quiltSectionHeight, setQuiltSectionHeight] = useState(initialValues.height);
+  const [quiltSectionWidth, setQuiltSectionWidth] = useState(
+    initialValues.width
+  );
+  const [quiltSectionHeight, setQuiltSectionHeight] = useState(
+    initialValues.height
+  );
   const [fabric, setFabric] = useState(initialValues.fabric);
   const [shape, setShape] = useState(initialValues.shape);
   const [fabricSelected, selectFabric] = useState();
   const [imageList, updateImageList] = useState([]);
+  const [changedFabrics, updateChangedFabrics] = useState([]);
 
   const changeOneFabric = imageIndex => {
     let newImageList = Object.assign(imageList);
+
     newImageList[imageIndex] = fabricSelected;
+    setImageList(newImageList);
+    setImageCounts(getImageCounts());
+
+    updateImageList(
+      generateAllImages({
+        quiltSectionWidth,
+        quiltSectionHeight,
+        fabric,
+        shape
+      })
+    );
+
+    if (!changedFabrics.includes(imageIndex, 0))
+      updateChangedFabrics(changedFabrics.concat(imageIndex));
+  };
+
+  const randomizeAllNew = () => {
+    const newImageList = regenerateAllImages({
+      quiltSectionWidth,
+      quiltSectionHeight,
+      fabric
+    });
+    updateImageList(newImageList);
+    updateChangedFabrics([]);
+
+    setImageCounts(getImageCounts());
+  };
+
+  const randomizeExceptSelected = () => {
+    let newImageList = Object.assign(imageList);
 
     setImageList(newImageList);
     setImageCounts(getImageCounts());
 
-    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric, shape }));
+    updateImageList(
+      generateWithoutChanged({
+        quiltSectionWidth,
+        quiltSectionHeight,
+        fabric,
+        changedFabrics
+      })
+    );
   };
 
   useEffect(() => {
-    updateImageList(generateAllImages({ quiltSectionWidth, quiltSectionHeight, fabric, shape }));
+    updateImageList(
+      generateAllImages({
+        quiltSectionWidth,
+        quiltSectionHeight,
+        fabric,
+        shape
+      })
+    );
   }, [quiltSectionWidth, quiltSectionHeight, fabric, shape]);
 
   return (
@@ -70,7 +126,7 @@ function Homepage() {
           justifyContent: "space-around",
           alignItems: "flex-end",
           flexWrap: "wrap",
-          backgroundColor: "#fff",
+          backgroundColor: "#fff"
         }}
       >
         <div css={{ minWidth: 360 }}>
@@ -80,31 +136,60 @@ function Homepage() {
               display: "flex",
               justifyContent: "space-between",
               flexWrap: "wrap",
-              margin: `0 auto`,
+              margin: `0 auto`
             }}
           >
-            <Subtitle description={<a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">Go to Website</a>} />
-            <Subtitle description={<a href="https://github.com/knitcodemonkey/hexagon-quilt-map">See on Github</a>} />
+            <Subtitle
+              description={
+                <a href="https://knitcodemonkey.github.io/hexagon-quilt-map/">
+                  Go to Website
+                </a>
+              }
+            />
+            <Subtitle
+              description={
+                <a href="https://github.com/knitcodemonkey/hexagon-quilt-map">
+                  See on Github
+                </a>
+              }
+            />
           </div>
-          <button
-            css={{ margin: `10px auto` }}
-            type="button"
-            onClick={() => {
-              const newImageList = regenerateAllImages({
-                quiltSectionWidth,
-                quiltSectionHeight,
-                fabric,
-              });
-              updateImageList(newImageList);
-
-              setImageCounts(getImageCounts());
+          <div
+            css={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              margin: `10px auto`
             }}
           >
-            Randomize Fabric Placement
-          </button>
+            <button
+              css={{ flexWrap: "wrap" }}
+              type="button"
+              onClick={randomizeAllNew}
+            >
+              Randomize
+            </button>
+            <button
+              css={{ flexWrap: "wrap" }}
+              type="button"
+              onClick={() => {
+                if (changedFabrics.length > 0) randomizeExceptSelected();
+                else randomizeAllNew();
+              }}
+            >
+              Randomize Not Changed
+            </button>
+          </div>
         </div>
 
-        <form css={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
+        <form
+          css={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap"
+          }}
+        >
           <div>
             <FormField label="Shape:">
               <select
@@ -112,6 +197,7 @@ function Homepage() {
                 onChange={event => {
                   setShape(event.target.value);
                   localStorage.setItem("shape", event.target.value);
+                  updateChangedFabrics([]);
                 }}
               >
                 <option value={"Hexagon"}>Hexagon</option>
@@ -127,6 +213,7 @@ function Homepage() {
                 onChange={event => {
                   setFabric(event.target.value);
                   localStorage.setItem("fabric", event.target.value);
+                  updateChangedFabrics([]);
                 }}
               >
                 {Object.keys(specs).map(key => {
@@ -145,7 +232,11 @@ function Homepage() {
                 value={quiltSectionWidth}
                 onChange={event => {
                   setQuiltSectionWidth(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionWidth", parseInt(event.target.value));
+                  localStorage.setItem(
+                    "quiltSectionWidth",
+                    parseInt(event.target.value)
+                  );
+                  updateChangedFabrics([]);
                 }}
               >
                 {[...Array(30).keys()].map(num => {
@@ -163,7 +254,11 @@ function Homepage() {
                 value={quiltSectionHeight}
                 onChange={event => {
                   setQuiltSectionHeight(parseInt(event.target.value));
-                  localStorage.setItem("quiltSectionHeight", parseInt(event.target.value));
+                  localStorage.setItem(
+                    "quiltSectionHeight",
+                    parseInt(event.target.value)
+                  );
+                  updateChangedFabrics([]);
                 }}
               >
                 {[...Array(100).keys()].map(num => {
@@ -185,7 +280,7 @@ function Homepage() {
           paddingBottom: 56,
           margin: "0 auto",
           backgroundImage: `url(./wood.jpg)`,
-          backgroundOpacity: 0.5,
+          backgroundOpacity: 0.5
         }}
       >
         <QuiltSection
@@ -203,10 +298,15 @@ function Homepage() {
       <footer
         css={{
           borderTop: "1px solid rgba(0, 0, 0, 0.3)",
-          boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)"
         }}
       >
-        <FabricKey counts={counts} fabric={fabric} selectFabric={selectFabric} fabricSelected={fabricSelected} />
+        <FabricKey
+          counts={counts}
+          fabric={fabric}
+          selectFabric={selectFabric}
+          fabricSelected={fabricSelected}
+        />
       </footer>
     </main>
   );

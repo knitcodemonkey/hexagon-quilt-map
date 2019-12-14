@@ -23,14 +23,14 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
       ...touchingSpaces,
       imageList[idx - rowWidth * 2 - 1],
       imageList[idx - rowWidth * 2],
-      imageList[idx - rowWidth * 2 + 1],
+      imageList[idx - rowWidth * 2 + 1]
     ];
   } else {
     touchingSpaces = [
       ...touchingSpaces,
       imageList[idx - rowWidth - 1],
       imageList[idx - rowWidth],
-      imageList[idx - rowWidth + 1],
+      imageList[idx - rowWidth + 1]
     ];
   }
 
@@ -55,7 +55,11 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
     sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1;
 
     console.log(notImage, randImgNum);
-  } while (notImage.indexOf(randImgNum) > -1 || sameAsLastRow || sameAsLastRowHue);
+  } while (
+    notImage.indexOf(randImgNum) > -1 ||
+    sameAsLastRow ||
+    sameAsLastRowHue
+  );
   return randImgNum;
 };
 
@@ -69,7 +73,12 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
  *
  * @returns {array}
  */
-const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
+const generateAllImages = ({
+  fabric,
+  quiltSectionWidth,
+  quiltSectionHeight,
+  shape
+}) => {
   const imageList = getImageList();
   const newImageList = [];
 
@@ -78,6 +87,40 @@ const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shap
     const image = imageList[idx] || generateRandomImage(data);
     newImageList.push(image);
     setImageList(newImageList);
+  });
+
+  return newImageList;
+};
+
+/**
+ * Generates all the images for the quilt pulling random images from generateRandomImage().
+ * Then changes items of the generated quit array which indexes are inside of the changedFabrics arrat back to the previous version.
+ *
+ * @param {object} fabric
+ * @param {int} quiltSectionWidth
+ * @param {int} quiltSectionHeight
+ * @param {array} changedFabrics
+ *
+ * @returns {array}
+ */
+const generateWithoutChanged = ({
+  fabric,
+  quiltSectionWidth,
+  quiltSectionHeight,
+  changedFabrics
+}) => {
+  const imageList = getImageList();
+  const newImageList = [];
+
+  [...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach(idx => {
+    const data = { idx, rowWidth: quiltSectionWidth, fabric };
+    const image = generateRandomImage(data);
+    newImageList.push(image);
+    setImageList(newImageList);
+  });
+
+  changedFabrics.forEach(idx => {
+    newImageList[idx] = imageList[idx];
   });
 
   return newImageList;
@@ -141,4 +184,12 @@ const getImageCounts = () => {
   return counts;
 };
 
-export { generateRandomImage, generateAllImages, getImageList, setImageList, regenerateAllImages, getImageCounts };
+export {
+  generateRandomImage,
+  generateAllImages,
+  generateWithoutChanged,
+  getImageList,
+  setImageList,
+  regenerateAllImages,
+  getImageCounts
+};
