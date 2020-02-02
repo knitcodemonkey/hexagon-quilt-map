@@ -81,8 +81,12 @@ const generateAllImages = ({
 }) => {
   const imageList = getImageList();
   const newImageList = [];
+  const height =
+    shape === "RightTriangle"
+      ? (quiltSectionHeight - 1) * 2
+      : quiltSectionHeight;
 
-  [...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach(idx => {
+  [...Array(quiltSectionWidth * height).keys()].forEach(idx => {
     const data = { idx, rowWidth: quiltSectionWidth, fabric };
     const image = imageList[idx] || generateRandomImage(data);
     newImageList.push(image);
