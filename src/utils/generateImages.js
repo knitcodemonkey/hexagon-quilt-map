@@ -97,6 +97,40 @@ const generateAllImages = ({
 };
 
 /**
+ * Generates all the images for the quilt pulling random images from generateRandomImage().
+ * Then changes items of the generated quit array which indexes are inside of the changedFabrics arrat back to the previous version.
+ *
+ * @param {object} fabric
+ * @param {int} quiltSectionWidth
+ * @param {int} quiltSectionHeight
+ * @param {array} changedFabrics
+ *
+ * @returns {array}
+ */
+const generateWithoutChanged = ({
+  fabric,
+  quiltSectionWidth,
+  quiltSectionHeight,
+  changedFabrics
+}) => {
+  const imageList = getImageList();
+  const newImageList = [];
+
+  [...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach(idx => {
+    const data = { idx, rowWidth: quiltSectionWidth, fabric };
+    const image = generateRandomImage(data);
+    newImageList.push(image);
+    setImageList(newImageList);
+  });
+
+  changedFabrics.forEach(idx => {
+    newImageList[idx] = imageList[idx];
+  });
+
+  return newImageList;
+};
+
+/**
  * Empties localStorage, and runs generateAllImages()
  *
  * @param {int} hueWidth
@@ -157,6 +191,7 @@ const getImageCounts = () => {
 export {
   generateRandomImage,
   generateAllImages,
+  generateWithoutChanged,
   getImageList,
   setImageList,
   regenerateAllImages,
