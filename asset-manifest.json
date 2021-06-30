@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/hexagon-quilt-map/static/css/main.2a22d5ad.chunk.css",
-    "main.js": "/hexagon-quilt-map/static/js/main.a105e941.chunk.js",
-    "main.js.map": "/hexagon-quilt-map/static/js/main.a105e941.chunk.js.map",
-    "runtime-main.js": "/hexagon-quilt-map/static/js/runtime-main.a0309368.js",
-    "runtime-main.js.map": "/hexagon-quilt-map/static/js/runtime-main.a0309368.js.map",
-    "static/js/2.670d16ba.chunk.js": "/hexagon-quilt-map/static/js/2.670d16ba.chunk.js",
-    "static/js/2.670d16ba.chunk.js.map": "/hexagon-quilt-map/static/js/2.670d16ba.chunk.js.map",
+    "main.css": "/hexagon-quilt-map/static/css/main.aea3bace.chunk.css",
+    "main.js": "/hexagon-quilt-map/static/js/main.b2890b29.chunk.js",
+    "main.js.map": "/hexagon-quilt-map/static/js/main.b2890b29.chunk.js.map",
+    "runtime-main.js": "/hexagon-quilt-map/static/js/runtime-main.e815d301.js",
+    "runtime-main.js.map": "/hexagon-quilt-map/static/js/runtime-main.e815d301.js.map",
+    "static/js/2.581a950b.chunk.js": "/hexagon-quilt-map/static/js/2.581a950b.chunk.js",
+    "static/js/2.581a950b.chunk.js.map": "/hexagon-quilt-map/static/js/2.581a950b.chunk.js.map",
     "index.html": "/hexagon-quilt-map/index.html",
-    "precache-manifest.dcf69e1c1a0457ad0807cb0bf8c93670.js": "/hexagon-quilt-map/precache-manifest.dcf69e1c1a0457ad0807cb0bf8c93670.js",
-    "service-worker.js": "/hexagon-quilt-map/service-worker.js",
-    "static/css/main.2a22d5ad.chunk.css.map": "/hexagon-quilt-map/static/css/main.2a22d5ad.chunk.css.map"
+    "static/css/main.aea3bace.chunk.css.map": "/hexagon-quilt-map/static/css/main.aea3bace.chunk.css.map",
+    "static/js/2.581a950b.chunk.js.LICENSE.txt": "/hexagon-quilt-map/static/js/2.581a950b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a0309368.js",
-    "static/js/2.670d16ba.chunk.js",
-    "static/css/main.2a22d5ad.chunk.css",
-    "static/js/main.a105e941.chunk.js"
+    "static/js/runtime-main.e815d301.js",
+    "static/js/2.581a950b.chunk.js",
+    "static/css/main.aea3bace.chunk.css",
+    "static/js/main.b2890b29.chunk.js"
   ]
 }
