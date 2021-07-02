@@ -76,10 +76,10 @@ const Hexagons = (props) => {
 				width: theme.breakpoints[0],
 				display: 'grid',
 				gridTemplateColumns: `repeat(${quiltSectionWidth}, calc(${theme.breakpoints[0]} / ${quiltSectionWidth} ))`,
-				gridTemplateRows: `repeat(${quiltSectionHeight - 2}, calc(${heightMeasurement}))`,
+				gridTemplateRows: `repeat(${quiltSectionHeight}, calc(${heightMeasurement}))`,
 				margin: '40px auto -16px auto',
 				paddingRight: `calc(${theme.breakpoints[0]} / ${quiltSectionWidth} / 3)`,
-				maxHeight: `calc(${heightMeasurement} * ${quiltSectionHeight - 2})`,
+				maxHeight: `calc(${heightMeasurement} * ${quiltSectionHeight})`,
 				boxShadow: '0 0 4px rgba(0, 0, 0, 0.3)',
 			}}
 		>

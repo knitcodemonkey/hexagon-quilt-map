@@ -48,7 +48,8 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 	let noFabricAvailable = true
 	let missingImage = false
 	let keepRerolling = false
-
+	let sameAsLastRow = false
+	let sameAsLastRowHue = false
 	let sorryGottaTouch = 0
 
 	do {
@@ -57,8 +58,8 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 		randImageHue = randImgNum % hueWidth
 
 		// set params for easier "while" use
-		const sameAsLastRow = touchingSpaces.indexOf(randImgNum) > -1
-		const sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1
+		sameAsLastRow = touchingSpaces.indexOf(randImgNum) > -1
+		sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1
 
 		// Make sure that availableFabricCounts isn't empty for this random number
 		if (isEmpty(availableFabricCounts?.[randImgNum])) {
@@ -75,6 +76,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 		if (keepRerolling) {
 			sorryGottaTouch++
 		} else {
+			console.log({ reroll, tooManyRerolls, sorryGottaTouch })
 			sorryGottaTouch = 0
 		}
 
@@ -97,7 +99,12 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
 	const imageList = getImageList()
 	const newImageList = []
-	const height = shape === 'RightTriangle' ? quiltSectionHeight * 4 : quiltSectionHeight
+	const height =
+		shape === 'RightTriangle'
+			? quiltSectionHeight * 4
+			: shape === 'Hexagon'
+			? quiltSectionHeight + 2
+			: quiltSectionHeight
 
 	const allImages = [...Array(quiltSectionWidth * height).keys()]
 	allImages.forEach((idx) => {
