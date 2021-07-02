@@ -3,13 +3,11 @@ import PropTypes from 'prop-types'
 import specs from '../utils/specs'
 import { getFabricCounts, getImageCounts } from '../utils/generateImages'
 
-const FabricKey = ({ fabric, selectFabric, fabricSelected }) => {
+const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
 	const { fabricCount, notImage, hueWidth } = specs[fabric]
 	const gridTemplateColumns = `calc(94vw / ${hueWidth} - 10px)`
 
 	const fabricCounts = getFabricCounts()
-	const counts = getImageCounts()
-	console.log(counts)
 
 	return (
 		<aside

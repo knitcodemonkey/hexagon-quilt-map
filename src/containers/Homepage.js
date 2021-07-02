@@ -62,7 +62,6 @@ function Homepage() {
 
 		newImageList[imageIndex] = fabricSelected
 		setImageList(newImageList)
-
 		setImageCounts(getImageCounts())
 
 		const { newImageList: generatedImageList, newAvailableFabricCounts } = generateAllImages({
