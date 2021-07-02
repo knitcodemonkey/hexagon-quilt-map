@@ -16,7 +16,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 	const { hueWidth, notImage, fabricCount } = specs[fabric]
 
 	let imageList = getImageList()
-	let availableFabricCounts = getFabricCounts()
+	let availableFabricCounts = generateFabricCounts(imageList)
 
 	// get 3 hexis touching top of current hexi
 	let touchingSpaces = [imageList[idx - 1], imageList[idx - 2]]
@@ -62,14 +62,10 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 
 		// Make sure that availableFabricCounts isn't empty for this random number
 		if (isEmpty(availableFabricCounts?.[randImgNum])) {
-			availableFabricCounts[randImgNum] = isEmpty(specs[fabric]?.availableCounts?.[randImgNum])
-				? 100
-				: specs[fabric].availableCounts[randImgNum]
+			availableFabricCounts[randImgNum] = 100
 		}
 
-		noFabricAvailable = isEmpty(availableFabricCounts?.[randImgNum])
-			? false
-			: availableFabricCounts?.[randImgNum] - 1 <= 0
+		noFabricAvailable = availableFabricCounts[randImgNum] <= 1
 		missingImage = notImage.indexOf(randImgNum) > -1
 
 		const reroll = missingImage || sameAsLastRow || sameAsLastRowHue || noFabricAvailable
@@ -82,7 +78,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 			sorryGottaTouch = 0
 		}
 
-		console.log({ keepRerolling, sorryGottaTouch })
+		//console.log({ randImgNum, keepRerolling, sorryGottaTouch, available: !noFabricAvailable && !missingImage })
 	} while (keepRerolling)
 
 	return randImgNum
@@ -99,21 +95,20 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
  * @returns {array}
  */
 const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
-	const newAvailableFabricCounts = getFabricCounts()
 	const imageList = getImageList()
 	const newImageList = []
 	const height = shape === 'RightTriangle' ? (quiltSectionHeight - 1) * 2 : quiltSectionHeight
 
-	;[...Array(quiltSectionWidth * height).keys()].forEach((idx) => {
+	const allImages = [...Array(quiltSectionWidth * height).keys()]
+	allImages.forEach((idx) => {
 		const data = { idx, rowWidth: quiltSectionWidth, fabric }
 		const image = imageList[idx] || generateRandomImage(data)
 		newImageList.push(image)
-		newAvailableFabricCounts[image] = newAvailableFabricCounts?.[image] - 1
-		setFabricCounts(newAvailableFabricCounts)
 		setImageList(newImageList)
+		setFabricCounts(generateFabricCounts(newImageList))
 	})
-	console.log({ newImageList, newAvailableFabricCounts })
-	return { newImageList, newAvailableFabricCounts }
+
+	return newImageList
 }
 
 /**
@@ -130,22 +125,20 @@ const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shap
 const generateWithoutChanged = ({ fabric, quiltSectionWidth, quiltSectionHeight, changedFabrics }) => {
 	const imageList = getImageList()
 	const newImageList = []
-	const newAvailableFabricCounts = getFabricCounts()
 
 	;[...Array(quiltSectionWidth * quiltSectionHeight).keys()].forEach((idx) => {
 		const data = { idx, rowWidth: quiltSectionWidth, fabric }
 		const image = generateRandomImage(data)
 		newImageList.push(image)
-		newAvailableFabricCounts[image] = newAvailableFabricCounts[image] - 1
 		setImageList(newImageList)
-		setFabricCounts(newAvailableFabricCounts)
+		setFabricCounts(generateFabricCounts(newImageList))
 	})
 
 	changedFabrics.forEach((idx) => {
 		newImageList[idx] = imageList[idx]
 	})
 
-	return { newImageList, newAvailableFabricCounts }
+	return newImageList
 }
 
 /**
@@ -175,35 +168,11 @@ const getImageList = () => {
 }
 
 /**
- * Sets an array of fabric counts used
- *
- * @param {array} images
- */
-const getFabricCounts = () => {
-	const availableFabricCounts = specs[getFabric()]?.availableCounts ?? []
-
-	const newAvailableFabricCounts = { ...availableFabricCounts }
-	const localStorageFabricCounts = JSON.parse(window.localStorage.getItem('availableFabricCounts')) ?? []
-
-	Object.entries(localStorageFabricCounts).forEach(([key, val]) => (newAvailableFabricCounts[key] = val))
-	return newAvailableFabricCounts
-}
-
-/**
  * Sets an array of images to localStorage
  * @param {array} images
  */
 const setImageList = (images) => {
 	window.localStorage.setItem('imageList', JSON.stringify(images || []))
-}
-
-/**
- * Sets an array of fabric counts used
- *
- * @param {array} images
- */
-const setFabricCounts = (availableFabricCounts) => {
-	window.localStorage.setItem('availableFabricCounts', JSON.stringify(availableFabricCounts))
 }
 
 export const setFabricLS = (fabric) => {
@@ -232,8 +201,8 @@ const removeFabricCounts = () => {
  * @returns {object} object of counts for key
  */
 
-const getImageCounts = () => {
-	const imageList = getImageList()
+const getImageCounts = (newImageList) => {
+	const imageList = Object.assign(isEmpty(newImageList) ? getImageList() : newImageList)
 	let counts = {}
 
 	imageList.forEach((val) => {
@@ -243,16 +212,44 @@ const getImageCounts = () => {
 	return counts
 }
 
-export const generateFabricCounts = () => {
-	const imageList = getImageList()
-	const fabric = getFabric() ?? 'beeCreative'
-	const fabricCounts = specs[fabric].availableCounts ?? []
+/**
+ * Sets an array of fabric counts used
+ *
+ * @param {array} images
+ */
+// export const getFabricCounts = () => {
+// 	const availableFabricCounts = specs[getFabric()]?.availableCounts ?? {}
+// 	const newAvailableFabricCounts = Object.assign(availableFabricCounts)
 
-	imageList.forEach((val) => {
-		fabricCounts[val]--
+// 	const localStorageFabricCounts = JSON.parse(window.localStorage.getItem('availableFabricCounts')) ?? []
+// 	Object.entries(localStorageFabricCounts).forEach(([key, val]) => {
+// 		newAvailableFabricCounts[key] = !isEmpty(val) ? val : availableFabricCounts?.[key] ?? 100
+// 	})
+
+// 	return newAvailableFabricCounts
+// }
+
+/**
+ * accepts an optional imageList to generate new fabric counts
+ *
+ * @param {array} imageList
+ * @returns
+ */
+
+export const generateFabricCounts = (imageList) => {
+	const newImageList = !isEmpty(imageList) ? imageList : getImageList()
+	const fabricCounts = specs[getFabric()]?.availableCounts ?? {}
+	const imageCounts = getImageCounts(newImageList)
+	const newfabricCounts = {}
+	Object.entries(fabricCounts).forEach(([key, val]) => {
+		newfabricCounts[key] = val - (imageCounts?.[key] ?? 0)
 	})
 
-	return { fabricCounts, imageCounts: getImageCounts() }
+	return newfabricCounts
+}
+
+const setFabricCounts = (fabricCounts) => {
+	window.localStorage.setItem('availableFabricCounts', JSON.stringify(fabricCounts))
 }
 
 export const getFabric = () => window.localStorage.getItem('fabric')
@@ -263,8 +260,6 @@ export {
 	generateWithoutChanged,
 	getImageList,
 	setImageList,
-	getFabricCounts,
-	setFabricCounts,
 	regenerateAllImages,
 	getImageCounts,
 }

@@ -10,10 +10,7 @@ import {
 	generateWithoutChanged,
 	getImageCounts,
 	setImageList,
-	getFabricCounts,
-	setFabricCounts,
 	setFabricLS,
-	generateFabricCounts,
 } from '../utils/generateImages'
 import specs from '../utils/specs'
 
@@ -37,7 +34,6 @@ function Homepage() {
 		height: parseInt(lStorage?.quiltSectionHeight ?? 7),
 		fabric: lStorage?.fabric ?? 'beeCreative',
 		shape: lStorage?.shape ?? 'Hexagon',
-		availableCounts: specs.beeCreative?.availableCounts,
 	}
 
 	useEffect(() => {
@@ -55,38 +51,34 @@ function Homepage() {
 	const [fabricSelected, selectFabric] = useState()
 	const [imageList, updateImageList] = useState([])
 	const [changedFabrics, updateChangedFabrics] = useState([])
-	const [availableFabricCounts, setAvailableFabricCounts] = useState(initialValues.availableCounts)
 
 	const changeOneFabric = (imageIndex) => {
 		let newImageList = Object.assign(imageList)
 
 		newImageList[imageIndex] = fabricSelected
 		setImageList(newImageList)
-		setImageCounts(getImageCounts())
+		setImageCounts(getImageCounts(newImageList))
 
-		const { newImageList: generatedImageList, newAvailableFabricCounts } = generateAllImages({
+		const generatedImageList = generateAllImages({
 			quiltSectionWidth,
 			quiltSectionHeight,
 			fabric,
 			shape,
 		})
 
-		setFabricCounts(newAvailableFabricCounts)
 		updateImageList(generatedImageList)
-		setAvailableFabricCounts(newAvailableFabricCounts)
 
 		if (!changedFabrics.includes(imageIndex, 0)) updateChangedFabrics(changedFabrics.concat(imageIndex))
 	}
 
 	const randomizeAllNew = () => {
-		const { newImageList } = regenerateAllImages({
+		const newImageList = regenerateAllImages({
 			quiltSectionWidth,
 			quiltSectionHeight,
 			fabric,
 		})
 
 		updateImageList(newImageList)
-		setAvailableFabricCounts(generateFabricCounts())
 		updateChangedFabrics([])
 
 		setImageCounts(getImageCounts())
@@ -97,9 +89,8 @@ function Homepage() {
 
 		setImageList(makingImageList)
 		setImageCounts(getImageCounts())
-		setFabricCounts(getFabricCounts())
 
-		const { newImageList, newAvailableFabricCounts } = generateWithoutChanged({
+		const newImageList = generateWithoutChanged({
 			quiltSectionWidth,
 			quiltSectionHeight,
 			fabric,
@@ -107,11 +98,10 @@ function Homepage() {
 		})
 
 		updateImageList(newImageList)
-		setAvailableFabricCounts(newAvailableFabricCounts)
 	}
 
 	useEffect(() => {
-		const { newImageList } = generateAllImages({
+		const newImageList = generateAllImages({
 			quiltSectionWidth,
 			quiltSectionHeight,
 			fabric,
@@ -120,7 +110,6 @@ function Homepage() {
 
 		updateImageList(newImageList)
 		setImageCounts(getImageCounts())
-		setAvailableFabricCounts(generateFabricCounts())
 	}, [quiltSectionWidth, quiltSectionHeight, fabric, shape])
 
 	return (
@@ -300,8 +289,7 @@ function Homepage() {
 					fabric={fabric}
 					selectFabric={selectFabric}
 					fabricSelected={fabricSelected}
-					availableFabricCounts={availableFabricCounts}
-					key={availableFabricCounts}
+					key={counts}
 				/>
 			</footer>
 		</main>

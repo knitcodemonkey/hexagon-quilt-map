@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import specs from '../utils/specs'
-import { getFabricCounts, getImageCounts } from '../utils/generateImages'
+import { generateFabricCounts, getImageCounts } from '../utils/generateImages'
 
-const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
+const FabricKey = ({ fabric, selectFabric, fabricSelected }) => {
 	const { fabricCount, notImage, hueWidth } = specs[fabric]
 	const gridTemplateColumns = `calc(94vw / ${hueWidth} - 10px)`
 
-	const fabricCounts = getFabricCounts()
+	const fabricCounts = generateFabricCounts()
+	const counts = getImageCounts()
 
 	return (
 		<aside
@@ -58,13 +59,9 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
 									}}
 								>
 									<span>{`#${imageNumber}: `}</span>
-									<span css={{ color: (counts[imageNumber] < 4 || counts[imageNumber] > 6) && 'red' }}>{`${
-										counts[imageNumber] || 0
-									} uses`}</span>
-									{' - '}
-									<span
-										css={{ color: fabricCounts[imageNumber] < 1 && 'red' }}
-									>{`${fabricCounts?.[imageNumber]} left`}</span>
+									<span css={{ color: fabricCounts[imageNumber] < 0 && 'red' }}>{`${counts[imageNumber] || 0} uses - ${
+										fabricCounts?.[imageNumber]
+									} left`}</span>
 								</div>
 							)}
 							<div
