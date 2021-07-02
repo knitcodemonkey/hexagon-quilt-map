@@ -77,12 +77,12 @@ const IsoscelesTriangles = (props) => {
 				overflow: 'hidden',
 				width: `calc(${theme.breakpoints[0]} - ${widthMeasurement})`,
 				display: 'grid',
-				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth + 1)}, calc( ${theme.breakpoints[0]} / ${
-					quiltSectionWidth + 1
-				}))`,
+				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth)}, calc( ${
+					theme.breakpoints[0]
+				} / ${quiltSectionWidth}))`,
 				gridTemplateRows: `repeat(${quiltSectionHeight}, calc(${heightMeasurement}))`,
 				margin: `40px auto -16px auto`,
-				maxHeight: `calc(${heightMeasurement} - 2})`,
+				maxHeight: `calc(${heightMeasurement} - 1})`,
 				boxShadow: '0 0 4px rgba(0, 0, 0, 0.3)',
 			}}
 		>
