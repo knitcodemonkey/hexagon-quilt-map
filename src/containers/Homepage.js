@@ -227,7 +227,7 @@ function Homepage() {
 							>
 								{[...Array(30).keys()].map((num) => {
 									return (
-										<option key={`wide-${num + 1}`} value={num + 1}>
+										<option key={`wide-${num}`} value={num}>
 											{num}
 										</option>
 									)
@@ -246,7 +246,7 @@ function Homepage() {
 							>
 								{[...Array(100).keys()].map((num) => {
 									return (
-										<option key={`tall-${num + 1}`} value={num + 1}>
+										<option key={`tall-${num}`} value={num}>
 											{num}
 										</option>
 									)

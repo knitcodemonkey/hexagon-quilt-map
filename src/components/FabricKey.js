@@ -60,7 +60,7 @@ const FabricKey = ({ fabric, selectFabric, fabricSelected }) => {
 								>
 									<span>{`#${imageNumber}: `}</span>
 									<span css={{ color: fabricCounts[imageNumber] < 0 && 'red' }}>{`${counts[imageNumber] || 0} uses - ${
-										fabricCounts?.[imageNumber]
+										fabricCounts?.[imageNumber] ?? 'unlimited'
 									} left`}</span>
 								</div>
 							)}
