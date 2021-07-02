@@ -68,7 +68,7 @@ IsoscelesTriangle.propTypes = {
 const IsoscelesTriangles = (props) => {
 	const { quiltSectionHeight, quiltSectionWidth, imageList } = props
 	let heightMeasurement = `${theme.breakpoints[0]} * 2 / ${quiltSectionWidth}`
-	const widthMeasurement = `(188vw / ${quiltSectionWidth} - 1px) / 2`
+	const widthMeasurement = `(188vw / ${quiltSectionWidth}) / 2`
 
 	return (
 		<div
@@ -77,7 +77,7 @@ const IsoscelesTriangles = (props) => {
 				overflow: 'hidden',
 				width: `calc(${theme.breakpoints[0]} - ${widthMeasurement})`,
 				display: 'grid',
-				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth + 1)}, calc( ${
+				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth)}, calc( ${
 					theme.breakpoints[0]
 				} / ${quiltSectionWidth}))`,
 				gridTemplateRows: `repeat(${quiltSectionHeight}, calc(${heightMeasurement}))`,
