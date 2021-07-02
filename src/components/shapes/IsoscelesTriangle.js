@@ -77,7 +77,7 @@ const IsoscelesTriangles = (props) => {
 				overflow: 'hidden',
 				width: `calc(${theme.breakpoints[0]} - ${widthMeasurement})`,
 				display: 'grid',
-				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth)}, calc( ${
+				gridTemplateColumns: `repeat(${parseInt(quiltSectionWidth + 1)}, calc( ${
 					theme.breakpoints[0]
 				} / ${quiltSectionWidth}))`,
 				gridTemplateRows: `repeat(${quiltSectionHeight}, calc(${heightMeasurement}))`,
