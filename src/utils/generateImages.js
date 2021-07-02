@@ -69,7 +69,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 		missingImage = notImage.indexOf(randImgNum) > -1
 
 		const reroll = missingImage || sameAsLastRow || sameAsLastRowHue || noFabricAvailable
-		const tooManyRerolls = sorryGottaTouch > 20 && !noFabricAvailable && !missingImage
+		const tooManyRerolls = sorryGottaTouch > 100 && !noFabricAvailable && !missingImage
 		keepRerolling = reroll && !tooManyRerolls
 
 		if (keepRerolling) {
@@ -97,7 +97,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 const generateAllImages = ({ fabric, quiltSectionWidth, quiltSectionHeight, shape }) => {
 	const imageList = getImageList()
 	const newImageList = []
-	const height = shape === 'RightTriangle' ? (quiltSectionHeight - 1) * 2 : quiltSectionHeight
+	const height = shape === 'RightTriangle' ? quiltSectionHeight * 4 : quiltSectionHeight
 
 	const allImages = [...Array(quiltSectionWidth * height).keys()]
 	allImages.forEach((idx) => {

@@ -76,6 +76,7 @@ function Homepage() {
 			quiltSectionWidth,
 			quiltSectionHeight,
 			fabric,
+			shape,
 		})
 
 		updateImageList(newImageList)
@@ -156,7 +157,7 @@ function Homepage() {
 							margin: `10px auto`,
 						}}
 					>
-						<button css={{ flexWrap: 'wrap' }} type="button" onClick={randomizeAllNew}>
+						<button css={{ flexWrap: 'wrap' }} type="button" onClick={() => randomizeAllNew()}>
 							Randomize
 						</button>
 						<button
@@ -192,7 +193,7 @@ function Homepage() {
 								<option value={'Hexagon'}>Hexagon</option>
 								<option value={'Square'}>Square</option>
 								<option value={'IsoscelesTriangle'}>Isosceles Triangle</option>
-								<option value={'RightTriangle'}>Right Triangle</option>
+								<option value={'RightTriangle'}>Half Square Triangle</option>
 							</select>
 						</FormField>
 
