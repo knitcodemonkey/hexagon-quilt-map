@@ -69,7 +69,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
 		missingImage = notImage.indexOf(randImgNum) > -1
 
 		const reroll = missingImage || sameAsLastRow || sameAsLastRowHue || noFabricAvailable
-		const tooManyRerolls = sorryGottaTouch > 10 && !noFabricAvailable && !missingImage
+		const tooManyRerolls = sorryGottaTouch > 20 && !noFabricAvailable && !missingImage
 		keepRerolling = reroll && !tooManyRerolls
 
 		if (keepRerolling) {
