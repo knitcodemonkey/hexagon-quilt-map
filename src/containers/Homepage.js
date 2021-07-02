@@ -28,10 +28,11 @@ const Subtitle = ({ title, description }) => (
 function Homepage() {
   const lStorage = { ...localStorage };
   const initialValues = {
-    width: lStorage.quiltSectionWidth ? lStorage.quiltSectionWidth : 17,
-    height: lStorage.quiltSectionHeight ? lStorage.quiltSectionHeight : 7,
-    fabric: lStorage.fabric ? lStorage.fabric : "beeCreative",
-    shape: lStorage.shape ? lStorage.shape : "Hexagon"
+    width: parseInt(lStorage?.quiltSectionWidth ?? 17),
+    height: parseInt(lStorage?.quiltSectionHeight ?? 7),
+    fabric: lStorage?.fabric ?? "beeCreative",
+    shape: lStorage?.shape ?? "Hexagon",
+    availableFabricCounts: lStorage?.availableFabricCounts ?? specs[lStorage?.fabric ?? "beeCreative"]?.availableCounts
   };
 
   // Find out number of instancesl
@@ -47,6 +48,7 @@ function Homepage() {
   const [fabricSelected, selectFabric] = useState();
   const [imageList, updateImageList] = useState([]);
   const [changedFabrics, updateChangedFabrics] = useState([]);
+  const [availableFabricCounts, setAvailableFabricCounts] = useState(initialValues.availableFabricCounts)
 
   const changeOneFabric = imageIndex => {
     let newImageList = Object.assign(imageList);
@@ -60,7 +62,9 @@ function Homepage() {
         quiltSectionWidth,
         quiltSectionHeight,
         fabric,
-        shape
+        shape, 
+        availableFabricCounts,
+        setAvailableFabricCounts
       })
     );
 
@@ -72,7 +76,9 @@ function Homepage() {
     const newImageList = regenerateAllImages({
       quiltSectionWidth,
       quiltSectionHeight,
-      fabric
+      fabric,
+      availableFabricCounts: specs[fabric].availableCounts, 
+      setAvailableFabricCounts
     });
     updateImageList(newImageList);
     updateChangedFabrics([]);
@@ -91,7 +97,9 @@ function Homepage() {
         quiltSectionWidth,
         quiltSectionHeight,
         fabric,
-        changedFabrics
+        changedFabrics,
+        availableFabricCounts, 
+        setAvailableFabricCounts
       })
     );
   };
@@ -102,10 +110,13 @@ function Homepage() {
         quiltSectionWidth,
         quiltSectionHeight,
         fabric,
-        shape
+        shape,
+        availableFabricCounts, 
+        setAvailableFabricCounts
       })
     );
-  }, [quiltSectionWidth, quiltSectionHeight, fabric, shape]);
+    
+  }, [quiltSectionWidth, quiltSectionHeight, fabric, shape, availableFabricCounts]);
 
   return (
     <main className="Homepage">
@@ -306,6 +317,8 @@ function Homepage() {
           fabric={fabric}
           selectFabric={selectFabric}
           fabricSelected={fabricSelected}
+          availableFabricCounts={availableFabricCounts}
+          key={availableFabricCounts}
         />
       </footer>
     </main>

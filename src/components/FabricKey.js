@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import specs from "../utils/specs";
 
-const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
+const FabricKey = ({ counts, fabric, selectFabric, fabricSelected, availableFabricCounts }) => {
   const { fabricCount, notImage, hueWidth } = specs[fabric];
   const gridTemplateColumns = `calc(94vw / ${hueWidth} - 10px)`;
 
@@ -54,7 +54,8 @@ const FabricKey = ({ counts, fabric, selectFabric, fabricSelected }) => {
                 >
                   <span>{`#${idx + 1}: `}</span>
                   <span css={{ color: (counts[idx + 1] < 4 || counts[idx + 1] > 6) && "red" }}>{`${counts[idx + 1] ||
-                    0} uses`}</span>
+                    0} uses`}</span>{' - '}
+                    <span css={{ color: (availableFabricCounts[idx + 1] < 1) && "red" }}>{`${availableFabricCounts?.[idx + 1]} left`}</span>
                 </div>
               )}
               <div

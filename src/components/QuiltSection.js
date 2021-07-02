@@ -8,8 +8,6 @@ import RightTriangles from "./shapes/RightTriangle";
 const QuiltSection = props => {
   const { shape } = props;
 
-  console.log(shape);
-
   switch (shape) {
     case "Square":
       return <Squares {...props} />;

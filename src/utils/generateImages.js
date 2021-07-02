@@ -11,8 +11,12 @@ import specs from "./specs";
  *
  * @returns {int}
  */
-const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
-  const { hueWidth, notImage, fabricCount } = specs[fabric];
+const generateRandomImage = ({ idx, rowWidth, fabric, shape, availableFabricCounts,
+  setAvailableFabricCounts }) => {
+  const { hueWidth, notImage, fabricCount, availableCounts } = specs[fabric];
+  const updatedAvailableCounts = Object.assign( availableFabricCounts ?? availableCounts)
+  console.log(updatedAvailableCounts)
+
   let imageList = getImageList();
 
   // get 3 hexis touching top of current hexi
@@ -44,6 +48,7 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
   let randImageHue = randImgNum % hueWidth;
   let sameAsLastRow = true;
   let sameAsLastRowHue = true;
+  let stillHasFabricAvailable = true;
 
   do {
     // Get random values
@@ -53,13 +58,17 @@ const generateRandomImage = ({ idx, rowWidth, fabric, shape }) => {
     // set params for easier "while" use
     sameAsLastRow = touchingSpaces.indexOf(randImgNum) > -1;
     sameAsLastRowHue = touchingSpacesHue.indexOf(randImageHue) > -1;
+    stillHasFabricAvailable = updatedAvailableCounts?.[randImgNum] - 1 >= 0 ?? true;
 
-    console.log(notImage, randImgNum);
   } while (
     notImage.indexOf(randImgNum) > -1 ||
     sameAsLastRow ||
-    sameAsLastRowHue
+    sameAsLastRowHue || 
+    !stillHasFabricAvailable
   );
+
+  updatedAvailableCounts[randImgNum]--
+  setAvailableFabricCounts(updatedAvailableCounts)
   return randImgNum;
 };
 
@@ -77,7 +86,9 @@ const generateAllImages = ({
   fabric,
   quiltSectionWidth,
   quiltSectionHeight,
-  shape
+  shape,
+  availableFabricCounts,
+  setAvailableFabricCounts
 }) => {
   const imageList = getImageList();
   const newImageList = [];
@@ -87,7 +98,8 @@ const generateAllImages = ({
       : quiltSectionHeight;
 
   [...Array(quiltSectionWidth * height).keys()].forEach(idx => {
-    const data = { idx, rowWidth: quiltSectionWidth, fabric };
+    const data = { idx, rowWidth: quiltSectionWidth, fabric, availableFabricCounts,
+      setAvailableFabricCounts };
     const image = imageList[idx] || generateRandomImage(data);
     newImageList.push(image);
     setImageList(newImageList);
@@ -141,7 +153,10 @@ const generateWithoutChanged = ({
  * @returns {array}
  */
 const regenerateAllImages = data => {
+  const {setAvailableFabricCounts, fabric} = data;
   removeImageList();
+  window.localStorage.removeItem("availableFabricCounts");
+  setAvailableFabricCounts(specs[fabric].availableCounts)
   return generateAllImages(data);
 };
 
